@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="TeaserItemFormSaveButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\GenericButton">
+        <arguments>
+            <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
+            <argument name="buttonData" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Save Teaser Item</item>
+                <item name="class" xsi:type="string">save primary</item>
+                <item name="sortOrder" xsi:type="number">90</item>
+                <item name="dataAttribute" xsi:type="array">
+                    <item name="mage-init" xsi:type="array">
+                        <item name="button" xsi:type="array">
+                            <item name="event" xsi:type="string">save</item>
+                        </item>
+                    </item>
+                    <item name="form-role" xsi:type="string">save</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemFormSaveAndContinueButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\GenericButton">
+        <arguments>
+            <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
+            <argument name="buttonData" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save</item>
+                <item name="sortOrder" xsi:type="number">80</item>
+                <item name="dataAttribute" xsi:type="array">
+                    <item name="mage-init" xsi:type="array">
+                        <item name="button" xsi:type="array">
+                            <item name="event" xsi:type="string">saveAndContinueEdit</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemFormResetButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\GenericButton">
+        <arguments>
+            <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
+            <argument name="buttonData" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Reset</item>
+                <item name="class" xsi:type="string">reset</item>
+                <item name="sortOrder" xsi:type="number">30</item>
+                <item name="onClick" xsi:type="string">location.reload();</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemFormDeleteButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\DeleteButton">
+        <arguments>
+            <argument name="deleteAction" xsi:type="string">*/*/delete</argument>
+            <argument name="requestIdParam" xsi:type="string">id</argument>
+            <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
+            <argument name="buttonData" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Delete</item>
+                <item name="class" xsi:type="string">delete</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemFormBackButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\BackButton">
+        <arguments>
+            <argument name="backUrl" xsi:type="string">*/*/</argument>
+            <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
+            <argument name="buttonData" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Delete</item>
+                <item name="class" xsi:type="string">delete</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

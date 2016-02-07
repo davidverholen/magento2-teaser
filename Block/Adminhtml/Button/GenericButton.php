@@ -11,11 +11,11 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit;
+namespace DavidVerholen\Teaser\Block\Adminhtml\Button;
 
-use DavidVerholen\Teaser\Controller\RegistryConstants;
 use Magento\Backend\Block\Widget\Context;
 use Magento\Framework\Registry;
+use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
  * Class GenericButton
@@ -26,7 +26,7 @@ use Magento\Framework\Registry;
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class GenericButton
+class GenericButton implements ButtonProviderInterface
 {
     /**
      * Url Builder
@@ -43,27 +43,43 @@ class GenericButton
     protected $registry;
 
     /**
+     * @var array
+     */
+    protected $buttonData;
+
+    /**
+     * @var
+     */
+    protected $registryIdKey;
+
+    /**
      * Constructor
      *
-     * @param Context $context
+     * @param Context  $context
      * @param Registry $registry
+     * @param          $registryIdKey
+     * @param array    $buttonData
      */
     public function __construct(
         Context $context,
-        Registry $registry
+        Registry $registry,
+        $registryIdKey,
+        $buttonData = []
     ) {
         $this->urlBuilder = $context->getUrlBuilder();
         $this->registry = $registry;
+        $this->buttonData = $buttonData;
+        $this->registryIdKey = $registryIdKey;
     }
 
     /**
-     * Return the customer Id.
+     * Return the Id.
      *
      * @return int|null
      */
-    public function getTeaserItemId()
+    public function getId()
     {
-        return $this->registry->registry(RegistryConstants::CURRENT_TEASER_ITEM_ID);
+        return $this->registry->registry($this->registryIdKey);
     }
 
     /**
@@ -76,5 +92,15 @@ class GenericButton
     public function getUrl($route = '', $params = [])
     {
         return $this->urlBuilder->getUrl($route, $params);
+    }
+
+    /**
+     * getButtonData
+     *
+     * @return array
+     */
+    public function getButtonData()
+    {
+        return $this->buttonData;
     }
 }

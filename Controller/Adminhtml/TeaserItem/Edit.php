@@ -65,7 +65,7 @@ class Edit extends TeaserItem
 
         $resultPage->getConfig()->getTitle()->prepend(__('Teaser Items'));
         $resultPage->getConfig()->getTitle()->prepend(
-            $teaserItem->getId() ? $teaserItem->getId() : __('New Teaser Item')
+            $teaserItem->getId() ? $teaserItem->getTitle() : __('New Teaser Item')
         );
 
         return $resultPage;

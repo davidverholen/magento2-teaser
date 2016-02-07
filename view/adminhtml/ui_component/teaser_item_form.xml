@@ -11,11 +11,11 @@
             <item name="type" xsi:type="string">tabs</item>
         </item>
         <item name="buttons" xsi:type="array">
-            <item name="back" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\BackButton</item>
-            <item name="delete" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\DeleteButton</item>
-            <item name="reset" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\ResetButton</item>
-            <item name="save" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\SaveButton</item>
-            <item name="save_and_continue" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\SaveAndContinueButton</item>
+            <item name="back" xsi:type="string">TeaserItemFormBackButton</item>
+            <item name="delete" xsi:type="string">TeaserItemFormDeleteButton</item>
+            <item name="reset" xsi:type="string">TeaserItemFormResetButton</item>
+            <item name="save" xsi:type="string">TeaserItemFormSaveButton</item>
+            <item name="save_and_continue" xsi:type="string">TeaserItemFormSaveAndContinueButton</item>
         </item>
     </argument>
     <dataSource name="teaser_item_form_data_source">

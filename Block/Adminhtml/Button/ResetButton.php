@@ -1,6 +1,6 @@
 <?php
 /**
- * SaveAndContinueButton.php
+ * ResetButton.php
  *
  * PHP Version 5
  *
@@ -11,12 +11,10 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit;
-
-use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
+namespace DavidVerholen\Teaser\Block\Adminhtml\Button;
 
 /**
- * Class SaveAndContinueButton
+ * Class ResetButton
  *
  * @category magento2
  * @package  DavidVerholen\Teaser\Block\Adminhtml\Edit
@@ -24,7 +22,7 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class SaveAndContinueButton extends GenericButton implements ButtonProviderInterface
+class ResetButton extends GenericButton
 {
     /**
      * @return array
@@ -32,14 +30,10 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
     public function getButtonData()
     {
         return [
-            'label' => __('Save and Continue Edit'),
-            'class' => 'save',
-            'data_attribute' => [
-                'mage-init' => [
-                    'button' => ['event' => 'saveAndContinueEdit'],
-                ],
-            ],
-            'sort_order' => 80,
+            'label' => __('Reset'),
+            'class' => 'reset',
+            'on_click' => 'location.reload();',
+            'sort_order' => 30
         ];
     }
 }
