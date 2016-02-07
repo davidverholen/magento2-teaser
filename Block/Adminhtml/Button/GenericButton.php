@@ -53,23 +53,31 @@ class GenericButton implements ButtonProviderInterface
     protected $registryIdKey;
 
     /**
+     * @var bool
+     */
+    protected $hideOnNew;
+
+    /**
      * Constructor
      *
      * @param Context  $context
      * @param Registry $registry
      * @param          $registryIdKey
      * @param array    $buttonData
+     * @param bool     $hideOnNew
      */
     public function __construct(
         Context $context,
         Registry $registry,
         $registryIdKey,
-        $buttonData = []
+        $buttonData = [],
+        $hideOnNew = false
     ) {
         $this->urlBuilder = $context->getUrlBuilder();
         $this->registry = $registry;
         $this->buttonData = $buttonData;
         $this->registryIdKey = $registryIdKey;
+        $this->hideOnNew = $hideOnNew;
     }
 
     /**
@@ -86,7 +94,8 @@ class GenericButton implements ButtonProviderInterface
      * Generate url by route and parameters
      *
      * @param   string $route
-     * @param   array $params
+     * @param   array  $params
+     *
      * @return  string
      */
     public function getUrl($route = '', $params = [])
@@ -101,6 +110,10 @@ class GenericButton implements ButtonProviderInterface
      */
     public function getButtonData()
     {
+        if ($this->hideOnNew && !$this->getId()) {
+            return [];
+        }
+
         return $this->buttonData;
     }
 }

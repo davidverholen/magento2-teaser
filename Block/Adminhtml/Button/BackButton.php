@@ -35,21 +35,27 @@ class BackButton extends GenericButton
      * @param          $registryIdKey
      * @param array    $backUrl
      * @param array    $buttonData
+     * @param bool     $hideOnNew
      */
     public function __construct(
         Context $context,
         Registry $registry,
         $registryIdKey,
         $backUrl,
-        array $buttonData = []
+        array $buttonData = [],
+        $hideOnNew = false
     ) {
         parent::__construct(
             $context,
             $registry,
             $registryIdKey,
-            $buttonData
+            $buttonData,
+            $hideOnNew
         );
 
-        $this->buttonData['on_click'] = sprintf("location.href = '%s';", $backUrl);
+        $this->buttonData['on_click'] = sprintf(
+            "location.href = '%s';",
+            $backUrl
+        );
     }
 }

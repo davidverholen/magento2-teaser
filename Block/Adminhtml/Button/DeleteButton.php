@@ -33,29 +33,51 @@ class DeleteButton extends GenericButton
      * @param Context  $context
      * @param Registry $registry
      * @param          $registryIdKey
+     * @param array    $htmlId
      * @param string   $requestIdParam
      * @param string   $deleteAction
      * @param array    $buttonData
+     * @param bool     $hideOnNew
      */
     public function __construct(
         Context $context,
         Registry $registry,
         $registryIdKey,
+        $htmlId,
         $requestIdParam = 'id',
         $deleteAction = '*/*/delete',
-        array $buttonData = []
+        array $buttonData = [],
+        $hideOnNew = true
     ) {
         parent::__construct(
             $context,
             $registry,
             $registryIdKey,
-            $buttonData
+            $buttonData,
+            $hideOnNew
         );
 
         $this->buttonData['data_attribute'] = [
             'url' => $this->getDeleteUrl($deleteAction, $requestIdParam)
         ];
+        $this->buttonData['id'] = $htmlId;
+        $this->buttonData['on_click'] = '';
     }
+
+    /**
+     * getButtonData
+     *
+     * @return array
+     */
+    public function getButtonData()
+    {
+        if (!$this->getId()) {
+            return [];
+        }
+
+        return parent::getButtonData();
+    }
+
 
     /**
      * @param $deleteAction
@@ -65,6 +87,9 @@ class DeleteButton extends GenericButton
      */
     public function getDeleteUrl($deleteAction, $requestIdParam)
     {
-        return $this->getUrl($deleteAction, [$requestIdParam => $this->getId()]);
+        return $this->getUrl(
+            $deleteAction,
+            [$requestIdParam => $this->getId()]
+        );
     }
 }
