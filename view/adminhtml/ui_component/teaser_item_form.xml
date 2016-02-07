@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">teaser_item_form.teaser_item_form_data_source</item>
+            <item name="deps" xsi:type="string">teaser_item_form.teaser_item_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Teaser Item Information</item>
+        <item name="layout" xsi:type="array">
+            <item name="type" xsi:type="string">tabs</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\BackButton</item>
+            <item name="delete" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\DeleteButton</item>
+            <item name="reset" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Edit\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="teaser_item_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">DavidVerholen\Teaser\Model\TeaserItem\DataProvider</argument>
+            <argument name="name" xsi:type="string">teaser_item_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">teaser_item_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="teaser/teaseritem/save"/>
+                    <item name="validate_url" xsi:type="url" path="teaser/teaseritem/validate"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="teaser_item">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Teaser Item Information</item>
+            </item>
+        </argument>
+        <field name="teaser_item_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">teaser_item</item>
+                </item>
+            </argument>
+        </field>
+        <field name="title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Title</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">teaser_item</item>
+                </item>
+            </argument>
+        </field>
+        <field name="cms_block_identifier">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Cms Block</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">teaser_item</item>
+                </item>
+            </argument>
+        </field>
+        <field name="image_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">teaser_item</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\IsActive</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Status</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">teaser_item</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

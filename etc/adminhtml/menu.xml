@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="DavidVerholen_Teaser::teaser"
+             title="Teaser"
+             module="DavidVerholen_Teaser"
+             sortOrder="100"
+             parent="Magento_Backend::content"
+             resource="DavidVerholen_Teaser::teaser"/>
+        <add id="DavidVerholen_Teaser::teaser_item"
+             title="Items"
+             module="DavidVerholen_Teaser"
+             sortOrder="0"
+             parent="DavidVerholen_Teaser::teaser"
+             action="teaser/teaserItem"
+             resource="DavidVerholen_Teaser::teaser_item"/>
+    </menu>
+</config>
