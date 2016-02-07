@@ -65,21 +65,6 @@ class DeleteButton extends GenericButton
     }
 
     /**
-     * getButtonData
-     *
-     * @return array
-     */
-    public function getButtonData()
-    {
-        if (!$this->getId()) {
-            return [];
-        }
-
-        return parent::getButtonData();
-    }
-
-
-    /**
      * @param $deleteAction
      * @param $requestIdParam
      *

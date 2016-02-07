@@ -25,7 +25,7 @@ use Magento\Framework\Registry;
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class BackButton extends GenericButton
+class LinkButton extends GenericButton
 {
     /**
      * BackButton constructor.
@@ -33,7 +33,7 @@ class BackButton extends GenericButton
      * @param Context  $context
      * @param Registry $registry
      * @param          $registryIdKey
-     * @param array    $backUrl
+     * @param array    $targetUrl
      * @param array    $buttonData
      * @param bool     $hideOnNew
      */
@@ -41,7 +41,7 @@ class BackButton extends GenericButton
         Context $context,
         Registry $registry,
         $registryIdKey,
-        $backUrl,
+        $targetUrl,
         array $buttonData = [],
         $hideOnNew = false
     ) {
@@ -55,7 +55,7 @@ class BackButton extends GenericButton
 
         $this->buttonData['on_click'] = sprintf(
             "location.href = '%s';",
-            $backUrl
+            $targetUrl
         );
     }
 }

@@ -61,9 +61,9 @@
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="TeaserItemFormBackButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\BackButton">
+    <virtualType name="TeaserItemFormBackButton" type="DavidVerholen\Teaser\Block\Adminhtml\Button\LinkButton">
         <arguments>
-            <argument name="backUrl" xsi:type="string">*/*/</argument>
+            <argument name="targetUrl" xsi:type="string">*/*/</argument>
             <argument name="registryIdKey" xsi:type="const">DavidVerholen\Teaser\Controller\RegistryConstants::CURRENT_TEASER_ITEM_ID</argument>
             <argument name="buttonData" xsi:type="array">
                 <item name="label" xsi:type="string" translate="true">Back</item>
