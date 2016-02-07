@@ -32,6 +32,8 @@ interface TeaserItemInterface
     const MODIFIED_DATE = 'modified_date';
     const CREATION_DATE = 'creation_date';
 
+    const TEASER_ITEM_IMAGE_PATH = 'teaser/item';
+
     /**
      * getId
      *

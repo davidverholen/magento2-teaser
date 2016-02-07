@@ -9,6 +9,7 @@
         <item name="label" xsi:type="string" translate="true">Teaser Item Information</item>
         <item name="layout" xsi:type="array">
             <item name="type" xsi:type="string">tabs</item>
+            <item name="navContainerName" xsi:type="string">left</item>
         </item>
         <item name="buttons" xsi:type="array">
             <item name="back" xsi:type="string">TeaserItemFormBackButton</item>
@@ -37,10 +38,10 @@
             </item>
         </argument>
     </dataSource>
-    <fieldset name="teaser_item">
+    <fieldset name="general">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Teaser Item Information</item>
+                <item name="label" xsi:type="string" translate="true">General</item>
             </item>
         </argument>
         <field name="teaser_item_id">
@@ -61,27 +62,31 @@
                     <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="source" xsi:type="string">teaser_item</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
         <field name="cms_block_identifier">
             <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string">Cms Block</item>
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="formElement" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">teaser_item</item>
                 </item>
             </argument>
         </field>
-        <field name="image_path">
+        <field name="image_path" class="DavidVerholen\Teaser\Ui\Component\Form\Element\TeaserItemImage">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string">Image</item>
                     <item name="visible" xsi:type="boolean">true</item>
                     <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="formElement" xsi:type="string">image</item>
                     <item name="source" xsi:type="string">teaser_item</item>
                 </item>
             </argument>
@@ -95,6 +100,9 @@
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">teaser_item</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>

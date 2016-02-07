@@ -15,9 +15,11 @@ namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
 
 use DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface;
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem as TeaserItemController;
+use DavidVerholen\Teaser\Controller\ImageUploader;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
 use DavidVerholen\Teaser\Model\TeaserItem;
+use DavidVerholen\Teaser\Model\TeaserItemFactory;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
@@ -39,18 +41,33 @@ class MassDelete extends TeaserItemController
      */
     protected $filter;
 
+    /**
+     * MassDelete constructor.
+     *
+     * @param Action\Context                $context
+     * @param TeaserItemRepositoryInterface $teaserItemRepository
+     * @param Builder                       $teaserItemBuilder
+     * @param TeaserItemCollectionFactory   $teaserItemCollectionFactory
+     * @param TeaserItemFactory             $teaserItemFactory
+     * @param ImageUploader                 $imageUploader
+     * @param Filter                        $filter
+     */
     public function __construct(
         Action\Context $context,
         TeaserItemRepositoryInterface $teaserItemRepository,
         Builder $teaserItemBuilder,
         TeaserItemCollectionFactory $teaserItemCollectionFactory,
+        TeaserItemFactory $teaserItemFactory,
+        ImageUploader $imageUploader,
         Filter $filter
     ) {
         parent::__construct(
             $context,
             $teaserItemRepository,
             $teaserItemBuilder,
-            $teaserItemCollectionFactory
+            $teaserItemCollectionFactory,
+            $teaserItemFactory,
+            $imageUploader
         );
 
         $this->filter = $filter;

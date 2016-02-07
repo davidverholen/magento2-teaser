@@ -2,7 +2,8 @@
   "name": "davidverholen/teaser",
   "description": "CMS Teaser Elements",
   "require": {
-    "php": "^5.5.0|^7.0.0"
+    "php": "^5.5.0|^7.0.0",
+    "davidverholen/cms": "^1.0.0"
   },
   "type": "magento2-module",
   "license": "OSL-3.0",

@@ -40,9 +40,9 @@ class Save extends TeaserItem
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
-        $data = $this->getRequest()->getParam('teaser_item');
+        $generalData = $this->getRequest()->getParam('general');
 
-        if ($data) {
+        if ($generalData) {
             $id = $this->getRequest()->getParam('id', false);
             $teaserItem = $this->teaserItemFactory->create();
 
@@ -55,23 +55,27 @@ class Save extends TeaserItem
                 }
             }
 
-            $teaserItem->setData($data);
+            $teaserItem->setData($generalData);
             try {
-                $this->teaserItemRepository->save($teaserItem);
+                $this->teaserItemRepository->save($this->uploadTeaserItemImage($teaserItem));
                 $this->messageManager->addSuccess(__('You saved the Teaser Item.'));
                 $this->_session->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath('*/*/edit',
-                        ['id' => $teaserItem->getId()]);
+                    return $resultRedirect->setPath(
+                        '*/*/edit',
+                        ['id' => $teaserItem->getId()]
+                    );
                 }
 
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
                 $this->messageManager->addError($e->getMessage());
-                $this->_session->setFormData($data);
+                $this->_session->setFormData($generalData);
 
-                return $resultRedirect->setPath('*/*/edit',
-                    ['id' => $this->getRequest()->getParam('id')]);
+                return $resultRedirect->setPath(
+                    '*/*/edit',
+                    ['id' => $this->getRequest()->getParam('id')]
+                );
             }
         }
 
