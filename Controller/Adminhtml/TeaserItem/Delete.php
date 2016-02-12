@@ -46,7 +46,6 @@ class Delete extends TeaserItem
             try {
                 /** @var TeaserItemModel $teaserItem */
                 $teaserItem = $this->teaserItemBuilder->build($id);
-                $teaserItem->load($id);
                 $teaserItem->delete();
                 $this->messageManager->addSuccess(__('You deleted the Teaser Item.'));
 
