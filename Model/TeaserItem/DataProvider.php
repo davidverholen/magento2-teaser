@@ -87,6 +87,7 @@ class DataProvider extends AbstractDataProvider implements DataProviderInterface
         foreach ($items as $teaserItem) {
             $result['general'] = $teaserItem->getData();
             $result['general']['image_url'] = $this->imageModel->getImageUrl($teaserItem);
+            $result['general']['image_path_abs'] = $this->imageModel->getImagePath($teaserItem);
             $this->loadedData[$teaserItem->getId()] = $result;
         }
 

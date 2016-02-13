@@ -15,6 +15,7 @@ namespace DavidVerholen\Teaser\Model\TeaserItem;
 
 use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
 use Magento\Backend\Model\UrlInterface;
+use Magento\Framework\Filesystem;
 use Magento\Framework\Reflection\Test\Unit\DataObject;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
@@ -36,21 +37,53 @@ class Image extends DataObject
     protected $storeManager;
 
     /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
+    /**
      * Image constructor.
      *
      * @param StoreManagerInterface $storeManager
+     * @param Filesystem            $filesystem
      */
     public function __construct(
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        Filesystem $filesystem
     ) {
         $this->storeManager = $storeManager;
+        $this->filesystem = $filesystem;
     }
 
+    /**
+     * getImageUrl
+     *
+     * @param TeaserItemInterface $teaserItem
+     *
+     * @return string
+     */
     public function getImageUrl(TeaserItemInterface $teaserItem)
     {
         return $this->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA)
         . TeaserItemInterface::TEASER_ITEM_IMAGE_PATH
         . '/' . $teaserItem->getImagePath();
+    }
+
+    /**
+     * getImagePath
+     *
+     * @param TeaserItemInterface $teaserItem
+     *
+     * @return string
+     */
+    public function getImagePath(TeaserItemInterface $teaserItem)
+    {
+        return implode(DIRECTORY_SEPARATOR, [
+            BP,
+            $this->filesystem->getUri('media'),
+            TeaserItemInterface::TEASER_ITEM_IMAGE_PATH,
+            $teaserItem->getImagePath()
+        ]);
     }
 
     /**
