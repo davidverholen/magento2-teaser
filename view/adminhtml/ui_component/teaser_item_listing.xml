@@ -100,7 +100,7 @@
                 </item>
             </argument>
         </column>
-        <column name="image_path" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\Thumbnail">
+        <column name="image_path" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserItemThumbnail">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
