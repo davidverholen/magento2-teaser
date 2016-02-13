@@ -1,20 +1,33 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemInterface" type="DavidVerholen\Teaser\Model\TeaserItem"/>
-    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserItemRepository"/>
+    <!-- UI Component CollectionFactory Config -->
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="teaser_item_listing_data_source" xsi:type="string">TeaserItemGridCollection</item>
+                <item name="teaser_group_listing_data_source" xsi:type="string">TeaserGroupGridCollection</item>
             </argument>
         </arguments>
     </type>
+    <!-- Teaser Item Config -->
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemInterface" type="DavidVerholen\Teaser\Model\TeaserItem"/>
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserItemRepository"/>
     <virtualType name="TeaserItemGridCollection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">davidverholen_teaser_item</argument>
             <argument name="resourceModel" xsi:type="string">DavidVerholen\Teaser\Model\ResourceModel\TeaserItem</argument>
+        </arguments>
+    </virtualType>
+    <!-- Teaser Group Config -->
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserGroupInterface" type="DavidVerholen\Teaser\Model\TeaserGroup"/>
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserGroupSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserGroupRepository"/>
+    <virtualType name="TeaserGroupGridCollection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">davidverholen_teaser_group</argument>
+            <argument name="resourceModel" xsi:type="string">DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup</argument>
         </arguments>
     </virtualType>
 </config>
