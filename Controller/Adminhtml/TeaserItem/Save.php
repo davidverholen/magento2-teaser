@@ -28,55 +28,52 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class Save extends TeaserItem
 {
-
     /**
-     * Dispatch request
+     * Save action
      *
-     * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
-     * @throws \Magento\Framework\Exception\NotFoundException
+     * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-
         $generalData = $this->getRequest()->getParam('general');
 
-        if ($generalData) {
-            $id = $this->getRequest()->getParam('id', false);
-            $teaserItem = $this->teaserItemFactory->create();
+        if (!$generalData) {
+            return $resultRedirect->setPath('*/*/');
+        }
 
-            if (false !== $id) {
-                $teaserItem->load($id);
+        $id = $this->getRequest()->getParam('id', null);
 
-                if (!$teaserItem->getId()) {
-                    $this->messageManager->addError(__('This Teaser Item no longer exists.'));
-                    return $resultRedirect->setPath('*/*/');
-                }
-            }
+        /** @var \DavidVerholen\Teaser\Model\TeaserItem $teaserItem */
+        $teaserItem = $this->teaserItemBuilder->build($id);
 
-            $teaserItem->setData($generalData);
-            try {
-                $this->teaserItemRepository->save($this->uploadTeaserItemImage($teaserItem));
-                $this->messageManager->addSuccess(__('You saved the Teaser Item.'));
-                $this->_session->setFormData(false);
-                if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath(
-                        '*/*/edit',
-                        ['id' => $teaserItem->getId()]
-                    );
-                }
+        if ($id && !$teaserItem->getId()) {
+            $this->messageManager->addError(__('This Teaser Item no longer exists.'));
+            return $resultRedirect->setPath('*/*/');
+        }
 
-                return $resultRedirect->setPath('*/*/');
-            } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
-                $this->_session->setFormData($generalData);
+        $teaserItem->setData($generalData);
 
-                return $resultRedirect->setPath(
-                    '*/*/edit',
-                    ['id' => $this->getRequest()->getParam('id')]
-                );
-            }
+        try {
+            $this->teaserItemRepository->save($this->uploadTeaserItemImage($teaserItem));
+            $this->messageManager->addSuccess(__('You saved the Teaser Item.'));
+            $this->_session->setFormData(false);
+        } catch (\Exception $e) {
+            $this->messageManager->addError($e->getMessage());
+            $this->_session->setFormData($generalData);
+
+            return $resultRedirect->setPath(
+                '*/*/edit',
+                ['id' => $this->getRequest()->getParam('id')]
+            );
+        }
+
+        if ($this->getRequest()->getParam('back')) {
+            return $resultRedirect->setPath(
+                '*/*/edit',
+                ['id' => $teaserItem->getId()]
+            );
         }
 
         return $resultRedirect->setPath('*/*/');

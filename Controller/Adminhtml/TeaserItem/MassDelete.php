@@ -13,17 +13,12 @@
 
 namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
 
-use DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface;
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem as TeaserItemController;
-use DavidVerholen\Teaser\Controller\ImageUploader;
-use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection;
-use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
 use DavidVerholen\Teaser\Model\TeaserItem;
-use DavidVerholen\Teaser\Model\TeaserItemFactory;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Ui\Component\MassAction\Filter;
+
 
 /**
  * Class MassDelete
@@ -37,44 +32,6 @@ use Magento\Ui\Component\MassAction\Filter;
 class MassDelete extends TeaserItemController
 {
     /**
-     * @var Filter
-     */
-    protected $filter;
-
-    /**
-     * MassDelete constructor.
-     *
-     * @param Action\Context                $context
-     * @param TeaserItemRepositoryInterface $teaserItemRepository
-     * @param Builder                       $teaserItemBuilder
-     * @param TeaserItemCollectionFactory   $teaserItemCollectionFactory
-     * @param TeaserItemFactory             $teaserItemFactory
-     * @param ImageUploader                 $imageUploader
-     * @param Filter                        $filter
-     */
-    public function __construct(
-        Action\Context $context,
-        TeaserItemRepositoryInterface $teaserItemRepository,
-        Builder $teaserItemBuilder,
-        TeaserItemCollectionFactory $teaserItemCollectionFactory,
-        TeaserItemFactory $teaserItemFactory,
-        ImageUploader $imageUploader,
-        Filter $filter
-    ) {
-        parent::__construct(
-            $context,
-            $teaserItemRepository,
-            $teaserItemBuilder,
-            $teaserItemCollectionFactory,
-            $teaserItemFactory,
-            $imageUploader
-        );
-
-        $this->filter = $filter;
-    }
-
-
-    /**
      * Dispatch request
      *
      * @return \Magento\Framework\Controller\ResultInterface|ResponseInterface
@@ -82,23 +39,17 @@ class MassDelete extends TeaserItemController
      */
     public function execute()
     {
-        /** @var Collection $collection */
-        $collection = $this->filter
-            ->getCollection($this->teaserItemCollectionFactory->create());
+        $collection = $this->getFilteredCollection();
 
-        /** @var TeaserItem $teaserItem */
+        /** @var \DavidVerholen\Teaser\Model\TeaserItem $teaserItem */
         foreach ($collection as $teaserItem) {
             $teaserItem->delete();
         }
 
-        $this->messageManager->addSuccess(__(
-            'A total of %1 record(s) have been deleted.',
-            $collection->getSize()
-        ));
+        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.', $collection->getSize()));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
-        $resultRedirect = $this->resultFactory
-            ->create(ResultFactory::TYPE_REDIRECT);
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         return $resultRedirect->setPath('*/*/');
     }

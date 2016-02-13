@@ -40,25 +40,22 @@ class Delete extends TeaserItem
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-
         $id = $this->getRequest()->getParam('id');
-        if ($id) {
-            try {
-                /** @var TeaserItemModel $teaserItem */
-                $teaserItem = $this->teaserItemBuilder->build($id);
-                $teaserItem->load($id);
-                $teaserItem->delete();
-                $this->messageManager->addSuccess(__('You deleted the Teaser Item.'));
 
-                return $resultRedirect->setPath('*/*/');
-            } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
-
-                return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
-            }
+        if (!$id) {
+            $this->messageManager->addError(__('We can\'t find a Teaser Item to delete.'));
+            return $resultRedirect->setPath('*/*/');
         }
 
-        $this->messageManager->addError(__('We can\'t find a Teaser Item to delete.'));
+        try {
+            /** @var TeaserItemModel $teaserItem */
+            $teaserItem = $this->teaserItemBuilder->build($id);
+            $teaserItem->delete();
+            $this->messageManager->addSuccess(__('You deleted the Teaser Item.'));
+        } catch (\Exception $e) {
+            $this->messageManager->addError($e->getMessage());
+            return $resultRedirect->setPath('*/*/edit', ['id' => $id]);
+        }
 
         return $resultRedirect->setPath('*/*/');
     }
