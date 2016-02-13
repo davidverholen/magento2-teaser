@@ -5,14 +5,24 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
+                    <resource id="DavidVerholen_Teaser::teaser_group"
+                              title="Teaser Group"
+                              sortOrder="95">
+                        <resource id="DavidVerholen_Teaser::teaser_group_save"
+                                  title="Save Teaser Group"
+                                  sortOrder="10" />
+                        <resource id="DavidVerholen_Teaser::teaser_group_delete"
+                                  title="Delete Teaser Group"
+                                  sortOrder="20" />
+                    </resource>
                     <resource id="Magento_Backend::teaser">
                         <resource id="DavidVerholen_Teaser::teaser_item"
-                                  title="Teaser"
+                                  title="Teaser Item"
                                   sortOrder="100">
-                            <resource id="DavidVerholen_Teaser::save"
+                            <resource id="DavidVerholen_Teaser::teaser_item_save"
                                       title="Save Teaser Item"
                                       sortOrder="10" />
-                            <resource id="DavidVerholen_Teaser::delete"
+                            <resource id="DavidVerholen_Teaser::teaser_item_delete"
                                       title="Delete Teaser Item"
                                       sortOrder="20" />
                         </resource>
