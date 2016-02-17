@@ -133,4 +133,14 @@ abstract class TeaserItem extends Action
     {
         return $this->filter->getCollection($this->teaserItemCollectionFactory->create());
     }
+
+    /**
+     * Check for is allowed
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('DavidVerholen_Teaser::teaser_item');
+    }
 }

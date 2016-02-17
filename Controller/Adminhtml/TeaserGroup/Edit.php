@@ -11,9 +11,9 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
@@ -22,12 +22,12 @@ use Magento\Framework\Controller\ResultFactory;
  * Class Edit
  *
  * @category magento2
- * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem
+ * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Edit extends TeaserItem
+class Edit extends TeaserGroup
 {
     /**
      * Dispatch request
@@ -37,13 +37,13 @@ class Edit extends TeaserItem
      */
     public function execute()
     {
-        $teaserItemId = $this->getRequest()->getParam('id', false);
+        $teaserGroupId = $this->getRequest()->getParam('id', false);
 
-        /** @var \DavidVerholen\Teaser\Model\TeaserItem $teaserItem */
-        $teaserItem = $this->teaserItemBuilder->build((int)$teaserItemId);
+        /** @var \DavidVerholen\Teaser\Model\TeaserGroup $teaserGroup */
+        $teaserGroup = $this->teaserGroupBuilder->build((int)$teaserGroupId);
 
-        if (false !== $teaserItemId && !$teaserItem->getId()) {
-            $this->messageManager->addError(__('This Teaser Item no longer exists.'));
+        if (false !== $teaserGroupId && !$teaserGroup->getId()) {
+            $this->messageManager->addError(__('This Teaser Group no longer exists.'));
             /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
             $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
@@ -52,20 +52,20 @@ class Edit extends TeaserItem
 
         $data = $this->_session->getData('form_data', true);
         if (!empty($data)) {
-            $teaserItem->setData($data);
+            $teaserGroup->setData($data);
         }
 
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
 
         $this->initPage($resultPage)->addBreadcrumb(
-            $teaserItem->getId() ? __('Edit Teaser Item') : __('New Teaser Item'),
-            $teaserItem->getId() ? __('Edit Teaser Item') : __('New Teaser Item')
+            $teaserGroup->getId() ? __('Edit Teaser Group') : __('New Teaser Group'),
+            $teaserGroup->getId() ? __('Edit Teaser Group') : __('New Teaser Group')
         );
 
-        $resultPage->getConfig()->getTitle()->prepend(__('Teaser Items'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Teaser Groups'));
         $resultPage->getConfig()->getTitle()->prepend(
-            $teaserItem->getId() ? $teaserItem->getTitle() : __('New Teaser Item')
+            $teaserGroup->getId() ? $teaserGroup->getTitle() : __('New Teaser Group')
         );
 
         return $resultPage;

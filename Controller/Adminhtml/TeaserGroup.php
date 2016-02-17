@@ -35,22 +35,22 @@ abstract class TeaserGroup extends Action
     /**
      * @var TeaserGroupRepositoryInterface
      */
-    protected $teaserItemRepository;
+    protected $teaserGroupRepository;
 
     /**
      * @var Builder
      */
-    protected $teaserItemBuilder;
+    protected $teaserGroupBuilder;
 
     /**
      * @var TeaserGroupCollectionFactory
      */
-    protected $teaserItemCollectionFactory;
+    protected $teaserGroupCollectionFactory;
 
     /**
      * @var TeaserGroupFactory
      */
-    protected $teaserItemFactory;
+    protected $teaserGroupFactory;
 
     /**
      * @var Filter
@@ -61,25 +61,25 @@ abstract class TeaserGroup extends Action
      * TeaserGroup constructor.
      *
      * @param Action\Context                $context
-     * @param TeaserGroupRepositoryInterface $teaserItemRepository
-     * @param Builder                       $teaserItemBuilder
-     * @param TeaserGroupCollectionFactory   $teaserItemCollectionFactory
-     * @param TeaserGroupFactory             $teaserItemFactory
+     * @param TeaserGroupRepositoryInterface $teaserGroupRepository
+     * @param Builder                       $teaserGroupBuilder
+     * @param TeaserGroupCollectionFactory   $teaserGroupCollectionFactory
+     * @param TeaserGroupFactory             $teaserGroupFactory
      * @param Filter                        $filter
      */
     public function __construct(
         Action\Context $context,
-        TeaserGroupRepositoryInterface $teaserItemRepository,
-        Builder $teaserItemBuilder,
-        TeaserGroupCollectionFactory $teaserItemCollectionFactory,
-        TeaserGroupFactory $teaserItemFactory,
+        TeaserGroupRepositoryInterface $teaserGroupRepository,
+        Builder $teaserGroupBuilder,
+        TeaserGroupCollectionFactory $teaserGroupCollectionFactory,
+        TeaserGroupFactory $teaserGroupFactory,
         Filter $filter
     ) {
         parent::__construct($context);
-        $this->teaserItemRepository = $teaserItemRepository;
-        $this->teaserItemBuilder = $teaserItemBuilder;
-        $this->teaserItemCollectionFactory = $teaserItemCollectionFactory;
-        $this->teaserItemFactory = $teaserItemFactory;
+        $this->teaserGroupRepository = $teaserGroupRepository;
+        $this->teaserGroupBuilder = $teaserGroupBuilder;
+        $this->teaserGroupCollectionFactory = $teaserGroupCollectionFactory;
+        $this->teaserGroupFactory = $teaserGroupFactory;
         $this->filter = $filter;
     }
 
@@ -103,6 +103,16 @@ abstract class TeaserGroup extends Action
      */
     protected function getFilteredCollection()
     {
-        return $this->filter->getCollection($this->teaserItemCollectionFactory->create());
+        return $this->filter->getCollection($this->teaserGroupCollectionFactory->create());
+    }
+
+    /**
+     * Check for is allowed
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('DavidVerholen_Teaser::teaser_group');
     }
 }
