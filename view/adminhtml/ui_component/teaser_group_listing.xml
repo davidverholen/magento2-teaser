@@ -2,24 +2,24 @@
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">teaser_item_listing.teaser_item_listing_data_source</item>
-            <item name="deps" xsi:type="string">teaser_item_listing.teaser_item_listing_data_source</item>
+            <item name="provider" xsi:type="string">teaser_group_listing.teaser_group_listing_data_source</item>
+            <item name="deps" xsi:type="string">teaser_group_listing.teaser_group_listing_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">teaser_item_columns</item>
+        <item name="spinner" xsi:type="string">teaser_group_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Teaser Item</item>
+                <item name="label" xsi:type="string" translate="true">Add New Teaser Group</item>
                 <item name="class" xsi:type="string">primary</item>
                 <item name="url" xsi:type="string">*/*/new</item>
             </item>
         </item>
     </argument>
-    <dataSource name="teaser_item_listing_data_source">
+    <dataSource name="teaser_group_listing_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">teaser_item_listing_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">teaser_item_id</argument>
+            <argument name="name" xsi:type="string">teaser_group_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">teaser_group_id</argument>
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -33,21 +33,21 @@
             </item>
         </argument>
     </dataSource>
-    <columns name="teaser_item_columns">
+    <columns name="teaser_group_columns">
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="editorConfig" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">teaser_item_listing.teaser_item_listing.teaser_item_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">teaser_group_listing.teaser_group_listing.teaser_group_columns.ids</item>
                     <item name="enabled" xsi:type="boolean">true</item>
-                    <item name="indexField" xsi:type="string">teaser_item_id</item>
+                    <item name="indexField" xsi:type="string">teaser_group_id</item>
                     <item name="clientConfig" xsi:type="array">
-                        <item name="saveUrl" xsi:type="url" path="teaser/teaserItem/inlineEdit"/>
+                        <item name="saveUrl" xsi:type="url" path="teaser/teaserGroup/inlineEdit"/>
                         <item name="validateBeforeSave" xsi:type="boolean">false</item>
                     </item>
                 </item>
                 <item name="childDefaults" xsi:type="array">
                     <item name="fieldAction" xsi:type="array">
-                        <item name="provider" xsi:type="string">teaser_item_listing.teaser_item_listing.teaser_item_columns_editor</item>
+                        <item name="provider" xsi:type="string">teaser_group_listing.teaser_group_listing.teaser_group_columns_editor</item>
                         <item name="target" xsi:type="string">startEdit</item>
                         <item name="params" xsi:type="array">
                             <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
@@ -60,11 +60,11 @@
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="indexField" xsi:type="string">teaser_item_id</item>
+                    <item name="indexField" xsi:type="string">teaser_group_id</item>
                 </item>
             </argument>
         </selectionsColumn>
-        <column name="teaser_item_id">
+        <column name="teaser_group_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">textRange</item>
@@ -88,33 +88,9 @@
                 </item>
             </argument>
         </column>
-        <column name="cms_block_identifier">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="editor" xsi:type="string">select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="label" xsi:type="string" translate="true">Cms Block</item>
-                </item>
-            </argument>
-        </column>
-        <column name="image_path" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserItemThumbnail">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
-                    <item name="sortable" xsi:type="boolean">false</item>
-                    <item name="altField" xsi:type="string">title</item>
-                    <item name="has_preview" xsi:type="string">1</item>
-                    <item name="label" xsi:type="string" translate="true">Image</item>
-                    <item name="sortOrder" xsi:type="number">20</item>
-                </item>
-            </argument>
-        </column>
         <column name="is_active">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\IsActive</item>
+                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserGroup\Source\IsActive</item>
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">select</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
@@ -144,10 +120,10 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserItemActions">
+        <actionsColumn name="actions" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserGroupActions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="indexField" xsi:type="string">teaser_item_id</item>
+                    <item name="indexField" xsi:type="string">teaser_group_id</item>
                 </item>
             </argument>
         </actionsColumn>

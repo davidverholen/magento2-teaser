@@ -1,6 +1,6 @@
 <?php
 /**
- * TeaserItem.php
+ * TeaserGroup.php
  *
  * PHP Version 5
  *
@@ -13,12 +13,12 @@
 
 namespace DavidVerholen\Teaser\Model;
 
-use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
-use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem as TeaserItemResource;
+use DavidVerholen\Teaser\Api\Data\TeaserGroupInterface;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup as TeaserGroupResource;
 use Magento\Framework\Model\AbstractModel;
 
 /**
- * Class TeaserItem
+ * Class TeaserGroup
  *
  * @category magento2
  * @package  DavidVerholen\Teaser\Model
@@ -26,12 +26,12 @@ use Magento\Framework\Model\AbstractModel;
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class TeaserItem extends AbstractModel implements TeaserItemInterface
+class TeaserGroup extends AbstractModel implements TeaserGroupInterface
 {
     /**
      * cache tag
      */
-    const CACHE_TAG = 'teaser_item';
+    const CACHE_TAG = 'teaser_group';
 
     /**
      * @var string
@@ -43,14 +43,14 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      *
      * @var string
      */
-    protected $_eventPrefix = 'teaser_item';
+    protected $_eventPrefix = 'teaser_group';
 
     /**
      * @return void
      */
     protected function _construct()
     {
-        $this->_init(TeaserItemResource::class);
+        $this->_init(TeaserGroupResource::class);
     }
 
     /**
@@ -61,26 +61,6 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function getTitle()
     {
         return (string)$this->getData(static::TITLE);
-    }
-
-    /**
-     * getCmsBlockIdentifier
-     *
-     * @return string
-     */
-    public function getCmsBlockIdentifier()
-    {
-        return (string)$this->getData(static::CMS_BLOCK_IDENTIFIER);
-    }
-
-    /**
-     * getImagePath
-     *
-     * @return string
-     */
-    public function getImagePath()
-    {
-        return (string)$this->getData(static::IMAGE_PATH);
     }
 
     /**
@@ -118,7 +98,7 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      *
      * @param string $title
      *
-     * @return TeaserItemInterface
+     * @return TeaserGroupInterface
      */
     public function setTitle($title)
     {
@@ -126,35 +106,11 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     }
 
     /**
-     * setCmsBlockIdentifier
-     *
-     * @param string $cmsBlockIdentifier
-     *
-     * @return TeaserItemInterface
-     */
-    public function setCmsBlockIdentifier($cmsBlockIdentifier)
-    {
-        return $this->setData(static::CMS_BLOCK_IDENTIFIER, $cmsBlockIdentifier);
-    }
-
-    /**
-     * setImagePath
-     *
-     * @param string $imagePath
-     *
-     * @return TeaserItemInterface
-     */
-    public function setImagePath($imagePath)
-    {
-        return $this->setData(static::IMAGE_PATH, $imagePath);
-    }
-
-    /**
      * setIsActive
      *
      * @param boolean $isActive
      *
-     * @return TeaserItemInterface
+     * @return TeaserGroupInterface
      */
     public function setIsActive($isActive)
     {
@@ -166,7 +122,7 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      *
      * @param string $modifiedDate
      *
-     * @return TeaserItemInterface
+     * @return TeaserGroupInterface
      */
     public function setModifiedDate($modifiedDate)
     {
@@ -178,7 +134,7 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      *
      * @param string $creationDate
      *
-     * @return TeaserItemInterface
+     * @return TeaserGroupInterface
      */
     public function setCreationDate($creationDate)
     {

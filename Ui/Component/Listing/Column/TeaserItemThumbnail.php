@@ -18,7 +18,7 @@ use Magento\Ui\Component\Listing\Columns\Column;
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Thumbnail extends Column
+class TeaserItemThumbnail extends Column
 {
     const NAME = 'thumbnail';
 

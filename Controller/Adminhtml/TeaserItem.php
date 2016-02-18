@@ -22,6 +22,7 @@ use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
 use DavidVerholen\Teaser\Model\TeaserItemFactory;
+use Magento\Ui\Component\MassAction\Filter;
 
 /**
  * Class Teaser
@@ -60,6 +61,11 @@ abstract class TeaserItem extends Action
     private $imageUploader;
 
     /**
+     * @var Filter
+     */
+    private $filter;
+
+    /**
      * TeaserItem constructor.
      *
      * @param Action\Context                $context
@@ -68,6 +74,7 @@ abstract class TeaserItem extends Action
      * @param TeaserItemCollectionFactory   $teaserItemCollectionFactory
      * @param TeaserItemFactory             $teaserItemFactory
      * @param ImageUploader                 $imageUploader
+     * @param Filter                        $filter
      */
     public function __construct(
         Action\Context $context,
@@ -75,7 +82,8 @@ abstract class TeaserItem extends Action
         Builder $teaserItemBuilder,
         TeaserItemCollectionFactory $teaserItemCollectionFactory,
         TeaserItemFactory $teaserItemFactory,
-        ImageUploader $imageUploader
+        ImageUploader $imageUploader,
+        Filter $filter
     ) {
         parent::__construct($context);
         $this->teaserItemRepository = $teaserItemRepository;
@@ -83,6 +91,7 @@ abstract class TeaserItem extends Action
         $this->teaserItemCollectionFactory = $teaserItemCollectionFactory;
         $this->teaserItemFactory = $teaserItemFactory;
         $this->imageUploader = $imageUploader;
+        $this->filter = $filter;
     }
 
     /**
@@ -115,5 +124,23 @@ abstract class TeaserItem extends Action
             TeaserItemInterface::IMAGE_PATH,
             TeaserItemInterface::TEASER_ITEM_IMAGE_PATH
         );
+    }
+
+    /**
+     * @return \Magento\Framework\Data\Collection\AbstractDb
+     */
+    protected function getFilteredCollection()
+    {
+        return $this->filter->getCollection($this->teaserItemCollectionFactory->create());
+    }
+
+    /**
+     * Check for is allowed
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('DavidVerholen_Teaser::teaser_item');
     }
 }

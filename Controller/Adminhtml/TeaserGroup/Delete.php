@@ -11,10 +11,10 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
-use DavidVerholen\Teaser\Model\TeaserItem as TeaserItemModel;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
+use DavidVerholen\Teaser\Model\TeaserGroup as TeaserGroupModel;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 
@@ -22,12 +22,12 @@ use Magento\Framework\Controller\ResultFactory;
  * Class Delete
  *
  * @category magento2
- * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem
+ * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Delete extends TeaserItem
+class Delete extends TeaserGroup
 {
 
     /**
@@ -43,15 +43,15 @@ class Delete extends TeaserItem
         $id = $this->getRequest()->getParam('id');
 
         if (!$id) {
-            $this->messageManager->addError(__('We can\'t find a Teaser Item to delete.'));
+            $this->messageManager->addError(__('We can\'t find a Teaser Group to delete.'));
             return $resultRedirect->setPath('*/*/');
         }
 
         try {
-            /** @var TeaserItemModel $teaserItem */
-            $teaserItem = $this->teaserItemBuilder->build($id);
-            $teaserItem->delete();
-            $this->messageManager->addSuccess(__('You deleted the Teaser Item.'));
+            /** @var TeaserGroupModel $teaserGroup */
+            $teaserGroup = $this->teaserGroupBuilder->build($id);
+            $teaserGroup->delete();
+            $this->messageManager->addSuccess(__('You deleted the Teaser Group.'));
         } catch (\Exception $e) {
             $this->messageManager->addError($e->getMessage());
             return $resultRedirect->setPath('*/*/edit', ['id' => $id]);

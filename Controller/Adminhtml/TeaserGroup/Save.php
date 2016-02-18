@@ -11,22 +11,21 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
-use Magento\Framework\App\ResponseInterface;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 use Magento\Framework\Controller\ResultFactory;
 
 /**
  * Class Save
  *
  * @category magento2
- * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem
+ * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Save extends TeaserItem
+class Save extends TeaserGroup
 {
     /**
      * Save action
@@ -45,19 +44,19 @@ class Save extends TeaserItem
 
         $id = $this->getRequest()->getParam('id', null);
 
-        /** @var \DavidVerholen\Teaser\Model\TeaserItem $teaserItem */
-        $teaserItem = $this->teaserItemBuilder->build($id);
+        /** @var \DavidVerholen\Teaser\Model\TeaserGroup $teaserGroup */
+        $teaserGroup = $this->teaserGroupBuilder->build($id);
 
-        if ($id && !$teaserItem->getId()) {
-            $this->messageManager->addError(__('This Teaser Item no longer exists.'));
+        if ($id && !$teaserGroup->getId()) {
+            $this->messageManager->addError(__('This Teaser Group no longer exists.'));
             return $resultRedirect->setPath('*/*/');
         }
 
-        $teaserItem->setData($generalData);
+        $teaserGroup->setData($generalData);
 
         try {
-            $this->teaserItemRepository->save($this->uploadTeaserItemImage($teaserItem));
-            $this->messageManager->addSuccess(__('You saved the Teaser Item.'));
+            $this->teaserGroupRepository->save($teaserGroup);
+            $this->messageManager->addSuccess(__('You saved the Teaser Group.'));
             $this->_session->setFormData(false);
         } catch (\Exception $e) {
             $this->messageManager->addError($e->getMessage());
@@ -72,7 +71,7 @@ class Save extends TeaserItem
         if ($this->getRequest()->getParam('back')) {
             return $resultRedirect->setPath(
                 '*/*/edit',
-                ['id' => $teaserItem->getId()]
+                ['id' => $teaserGroup->getId()]
             );
         }
 

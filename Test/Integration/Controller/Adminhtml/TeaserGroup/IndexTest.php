@@ -11,7 +11,7 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Test\Integration\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Test\Integration\Controller\Adminhtml\TeaserGroup;
 
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem\Index;
 use Magento\Backend\Model\View\Result\Page;
@@ -28,18 +28,18 @@ use Magento\TestFramework\TestCase\AbstractBackendController;
  * @link               http://github.com/davidverholen
  *
  * @magentoAppArea     adminhtml
+ * @magentoDbIsolation enabled
  */
 class IndexTest extends AbstractBackendController
 {
-    protected $uri = 'backend/teaser/teaseritem/index';
-    protected $resource = 'DavidVerholen_Teaser::teaser_item';
+    protected $uri = 'backend/teaser/teasergroup/index';
+    protected $resource = 'DavidVerholen_Teaser::teaser_group';
     protected $action = Index::class;
 
     public function testTheAddNewButtonIsPresent()
     {
         $this->dispatch($this->uri);
-        $content = $this->getResponse()->getBody();
-        $this->assertContains('Add New Teaser Item', $content);
+        $this->assertContains('Add New Teaser Group', $this->getResponse()->getBody());
     }
 
     public function testTheActionReturnsAResultPage()

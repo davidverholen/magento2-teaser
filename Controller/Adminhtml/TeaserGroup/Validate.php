@@ -1,6 +1,6 @@
 <?php
 /**
- * Index.php
+ * Validate.php
  *
  * PHP Version 5
  *
@@ -11,24 +11,26 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
-use Magento\Backend\App\Action;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 use Magento\Framework\App\ResponseInterface;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\DataObject;
 
 /**
- * Class Index
+ * Class Validate
  *
  * @category magento2
- * @package  DavidVerholen\Teaser\etc\Adminhtml\TeaserItem
+ * @package  DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Index extends TeaserItem
+class Validate extends TeaserGroup
 {
+
     /**
      * Dispatch request
      *
@@ -37,10 +39,13 @@ class Index extends TeaserItem
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Items'));
+        $response = new DataObject();
+        $response->setData('error', false);
 
-        return $resultPage;
+        /** @var Json $resultJson */
+        $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+        $resultJson->setData($response);
+
+        return $resultJson;
     }
 }

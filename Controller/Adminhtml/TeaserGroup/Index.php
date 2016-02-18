@@ -11,9 +11,9 @@
  * @link     http://github.com/davidverholen
  */
 
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
@@ -22,12 +22,12 @@ use Magento\Framework\Controller\ResultFactory;
  * Class Index
  *
  * @category magento2
- * @package  DavidVerholen\Teaser\etc\Adminhtml\TeaserItem
+ * @package  DavidVerholen\Teaser\etc\Adminhtml\TeaserGroup
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
  */
-class Index extends TeaserItem
+class Index extends TeaserGroup
 {
     /**
      * Dispatch request
@@ -39,7 +39,7 @@ class Index extends TeaserItem
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Items'));
+        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Groups'));
 
         return $resultPage;
     }
