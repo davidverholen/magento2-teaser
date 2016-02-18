@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="davidverholen_teaser_group"
+            class="DavidVerholen\Teaser\Block\Widget\TeaserGroup"
+            placeholder_image="DavidVerholen_Teaser::images/widget_teaser.png">
+        <label translate="true">Teaser Group</label>
+        <description translate="true">a group of teaser items</description>
+        <parameters>
+            <parameter name="teaser_group_id" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Slider</label>
+                <block class="DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Teaser Group...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="template" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="widget/teasergroup.phtml" selected="true">
+                        <label translate="true">Default Teaser Group Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
