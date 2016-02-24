@@ -14,8 +14,12 @@
 namespace DavidVerholen\Teaser\Model;
 
 use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem as TeaserItemResource;
+use DavidVerholen\Teaser\Model\TeaserItem\Image;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 
 /**
  * Class TeaserItem
@@ -46,12 +50,51 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     protected $_eventPrefix = 'teaser_item';
 
     /**
+     * @var Image
+     */
+    protected $imageAttributeModel;
+
+    /**
+     * TeaserItem constructor.
+     *
+     * @param Context            $context
+     * @param Registry           $registry
+     * @param TeaserItemResource $resource
+     * @param Collection         $resourceCollection
+     * @param Image              $imageAttributeModel
+     * @param array              $data
+     */
+    public function __construct(
+        Context $context,
+        Registry $registry,
+        ResourceModel\TeaserItem $resource,
+        Collection $resourceCollection,
+        Image $imageAttributeModel,
+        array $data = []
+    ) {
+        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->imageAttributeModel = $imageAttributeModel;
+    }
+
+    /**
      * @return void
      */
     protected function _construct()
     {
         $this->_init(TeaserItemResource::class);
     }
+
+    /**
+     * @return $this
+     */
+    public function afterSave()
+    {
+        parent::afterSave();
+        $this->imageAttributeModel->afterSave($this);
+
+        return $this;
+    }
+
 
     /**
      * getTitle

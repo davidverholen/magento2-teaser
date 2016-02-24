@@ -2,6 +2,7 @@
 namespace DavidVerholen\Teaser\Ui\Component\Listing\Column;
 
 use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
+use DavidVerholen\Teaser\Model\TeaserItem\Image;
 use Magento\Framework\DataObject;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -95,7 +96,7 @@ class TeaserItemThumbnail extends Column
     {
         return implode('/', [
             rtrim($this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA), '/'),
-            TeaserItemInterface::TEASER_ITEM_IMAGE_PATH,
+            Image::TEASER_ITEM_IMAGE_URL_PATH,
             $teaserItem->getData(TeaserItemInterface::IMAGE_PATH)
         ]);
     }

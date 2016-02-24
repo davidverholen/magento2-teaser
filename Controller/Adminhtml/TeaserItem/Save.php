@@ -14,7 +14,6 @@
 namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
 
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
-use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 
 /**
@@ -37,7 +36,8 @@ class Save extends TeaserItem
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $generalData = $this->getRequest()->getParam('general');
+        $data = $this->getRequest()->getParams();
+        $generalData = $this->imagePreprocessing($data['general']);
 
         if (!$generalData) {
             return $resultRedirect->setPath('*/*/');
@@ -56,7 +56,7 @@ class Save extends TeaserItem
         $teaserItem->setData($generalData);
 
         try {
-            $this->teaserItemRepository->save($this->uploadTeaserItemImage($teaserItem));
+            $this->teaserItemRepository->save($teaserItem);
             $this->messageManager->addSuccess(__('You saved the Teaser Item.'));
             $this->_session->setFormData(false);
         } catch (\Exception $e) {
@@ -77,5 +77,30 @@ class Save extends TeaserItem
         }
 
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * Image data preprocessing
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function imagePreprocessing($data)
+    {
+        if (isset($data['image_group']) && is_array($data['image_group'])) {
+            if (isset($data['image_group']['savedImage']['delete'])) {
+                $delete = $data['image_group']['savedImage']['delete'];
+                $data['image_group']['delete'] = filter_var($delete, FILTER_VALIDATE_BOOLEAN);
+            }
+            if (isset($_FILES['general']['name']['image_group'])) {
+                $imageGroupName = $_FILES['general']['name']['image_group'];
+                $data['image_group']['value'] = $imageGroupName['savedImage']['value'];
+            }
+            $data['image_additional_data'] = $data['image_group'];
+            unset($data['image_group']);
+        }
+
+        return $data;
     }
 }
