@@ -7,7 +7,7 @@
         <description translate="true">a group of teaser items</description>
         <parameters>
             <parameter name="teaser_group_id" xsi:type="block" visible="true" required="true" sort_order="20">
-                <label translate="true">Slider</label>
+                <label translate="true">Teaser Group</label>
                 <block class="DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup\Widget\Chooser">
                     <data>
                         <item name="button" xsi:type="array">
