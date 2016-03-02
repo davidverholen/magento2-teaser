@@ -2,7 +2,9 @@
 
 namespace DavidVerholen\Teaser\Block\Widget;
 
-class TeaserGroup extends \DavidVerholen\Teaser\Block\TeaserGroup
-{
+use DavidVerholen\Teaser\Block\TeaserGroup as TeaserGroupBlock;
+use Magento\Widget\Block\BlockInterface;
 
+class TeaserGroup extends TeaserGroupBlock implements BlockInterface
+{
 }

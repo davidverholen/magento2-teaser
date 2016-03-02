@@ -85,6 +85,14 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     }
 
     /**
+     * @return string
+     */
+    public function getImageUrl()
+    {
+        return $this->imageAttributeModel->getImageUrl($this);
+    }
+
+    /**
      * @return $this
      */
     public function afterSave()

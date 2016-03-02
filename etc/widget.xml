@@ -19,7 +19,7 @@
             <parameter name="template" xsi:type="select" visible="true" sort_order="30">
                 <label translate="true">Template</label>
                 <options>
-                    <option name="default" value="widget/teasergroup.phtml" selected="true">
+                    <option name="default" value="teasergroup.phtml" selected="true">
                         <label translate="true">Default Teaser Group Template</label>
                     </option>
                 </options>
