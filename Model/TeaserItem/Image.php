@@ -97,6 +97,12 @@ class Image extends DataObject
             return $this;
         }
 
+        if (!isset($_FILES['general']['tmp_name']['image_group']['savedImage']['value'])
+            || !isset($_FILES['general']['name']['image_group']['savedImage']['value'])
+        ) {
+            return $this;
+        }
+
         try {
             /** @var $uploader Uploader */
             $uploader = $this->fileUploaderFactory->create(['fileId' => [

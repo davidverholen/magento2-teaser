@@ -21,4 +21,12 @@ class DefaultRenderer extends Template implements RendererInterface
     {
         $this->teaserItem = $teaserItem;
     }
+
+    /**
+     * @return TeaserItemInterface
+     */
+    public function getTeaserItem()
+    {
+        return $this->teaserItem;
+    }
 }
