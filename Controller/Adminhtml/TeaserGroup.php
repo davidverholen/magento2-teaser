@@ -18,7 +18,7 @@ use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup\Builder;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup\CollectionFactory as TeaserGroupCollectionFactory;
-use DavidVerholen\Teaser\Model\TeaserGroupFactory;
+use DavidVerholen\Teaser\Model\TeaserGroupInterfaceFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
 /**
@@ -48,7 +48,7 @@ abstract class TeaserGroup extends Action
     protected $teaserGroupCollectionFactory;
 
     /**
-     * @var TeaserGroupFactory
+     * @var TeaserGroupInterfaceFactory
      */
     protected $teaserGroupFactory;
 
@@ -60,19 +60,19 @@ abstract class TeaserGroup extends Action
     /**
      * TeaserGroup constructor.
      *
-     * @param Action\Context                $context
+     * @param Action\Context                 $context
      * @param TeaserGroupRepositoryInterface $teaserGroupRepository
-     * @param Builder                       $teaserGroupBuilder
+     * @param Builder                        $teaserGroupBuilder
      * @param TeaserGroupCollectionFactory   $teaserGroupCollectionFactory
-     * @param TeaserGroupFactory             $teaserGroupFactory
-     * @param Filter                        $filter
+     * @param TeaserGroupInterfaceFactory    $teaserGroupFactory
+     * @param Filter                         $filter
      */
     public function __construct(
         Action\Context $context,
         TeaserGroupRepositoryInterface $teaserGroupRepository,
         Builder $teaserGroupBuilder,
         TeaserGroupCollectionFactory $teaserGroupCollectionFactory,
-        TeaserGroupFactory $teaserGroupFactory,
+        TeaserGroupInterfaceFactory $teaserGroupFactory,
         Filter $filter
     ) {
         parent::__construct($context);
@@ -87,6 +87,7 @@ abstract class TeaserGroup extends Action
      * Init page
      *
      * @param Page $resultPage
+     *
      * @return Page
      */
     protected function initPage(Page $resultPage)
