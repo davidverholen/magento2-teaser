@@ -19,7 +19,7 @@ use DavidVerholen\Teaser\Model\TeaserItem as TeaserItemModel;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
-use DavidVerholen\Teaser\Model\TeaserItemInterfaceFactory;
+use DavidVerholen\Teaser\Api\Data\TeaserItemInterfaceFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
 /**

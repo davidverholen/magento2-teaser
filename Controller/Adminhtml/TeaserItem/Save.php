@@ -27,6 +27,8 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class Save extends TeaserItem
 {
+    const GENERAL_DATA_KEY = 'general';
+
     /**
      * Save action
      *
@@ -37,11 +39,12 @@ class Save extends TeaserItem
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $data = $this->getRequest()->getParams();
-        $generalData = $this->imagePreprocessing($data['general']);
 
-        if (!$generalData) {
+        if (false === isset($data[self::GENERAL_DATA_KEY])) {
             return $resultRedirect->setPath('*/*/');
         }
+
+        $generalData = $this->imagePreprocessing($data[self::GENERAL_DATA_KEY]);
 
         $id = $this->getRequest()->getParam('id', null);
 
@@ -93,8 +96,8 @@ class Save extends TeaserItem
                 $delete = $data['image_group']['savedImage']['delete'];
                 $data['image_group']['delete'] = filter_var($delete, FILTER_VALIDATE_BOOLEAN);
             }
-            if (isset($_FILES['general']['name']['image_group'])) {
-                $imageGroupName = $_FILES['general']['name']['image_group'];
+            if (isset($_FILES[self::GENERAL_DATA_KEY]['name']['image_group'])) {
+                $imageGroupName = $_FILES[self::GENERAL_DATA_KEY]['name']['image_group'];
                 $data['image_group']['value'] = $imageGroupName['savedImage']['value'];
             }
             $data['image_additional_data'] = $data['image_group'];

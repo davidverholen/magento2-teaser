@@ -18,7 +18,7 @@ use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup\Builder;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup\CollectionFactory as TeaserGroupCollectionFactory;
-use DavidVerholen\Teaser\Model\TeaserGroupInterfaceFactory;
+use DavidVerholen\Teaser\Api\Data\TeaserGroupInterfaceFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
 /**
