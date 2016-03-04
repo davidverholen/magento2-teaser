@@ -15,7 +15,12 @@ namespace DavidVerholen\Teaser\Model;
 
 use DavidVerholen\Teaser\Api\Data\TeaserGroupInterface;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup as TeaserGroupResource;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection as TeaserItemCollection;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup\Collection;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Registry;
 
 /**
  * Class TeaserGroup
@@ -46,11 +51,68 @@ class TeaserGroup extends AbstractModel implements TeaserGroupInterface
     protected $_eventPrefix = 'teaser_group';
 
     /**
+     * @var TeaserItemCollection
+     */
+    protected $teaserItemsCollection;
+
+    /**
+     * @var TeaserItemCollectionFactory
+     */
+    protected $teaserItemCollectionFactory;
+
+    /**
+     * TeaserGroup constructor.
+     *
+     * @param Context                     $context
+     * @param Registry                    $registry
+     * @param TeaserGroupResource         $resource
+     * @param Collection                  $resourceCollection
+     * @param TeaserItemCollectionFactory $teaserItemCollectionFactory
+     * @param array                       $data
+     */
+    public function __construct(
+        Context $context,
+        Registry $registry,
+        TeaserGroupResource $resource,
+        Collection $resourceCollection,
+        TeaserItemCollectionFactory $teaserItemCollectionFactory,
+        array $data = []
+    ) {
+        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        $this->teaserItemCollectionFactory = $teaserItemCollectionFactory;
+    }
+
+
+    /**
      * @return void
      */
     protected function _construct()
     {
         $this->_init(TeaserGroupResource::class);
+    }
+
+    /**
+     * Teaser Items collection
+     *
+     * @return Collection
+     */
+    public function getTeaserItemsCollection()
+    {
+        if ($this->teaserItemsCollection === null) {
+            $this->teaserItemsCollection = $this->createTeaserItemsCollection()
+                ->setTeaserGroupFilter($this)
+                ->setDataToAll('teaser_group', $this);
+        }
+
+        return $this->teaserItemsCollection;
+    }
+
+    /**
+     * @return TeaserItemCollection
+     */
+    protected function createTeaserItemsCollection()
+    {
+        return $this->teaserItemCollectionFactory->create();
     }
 
     /**
