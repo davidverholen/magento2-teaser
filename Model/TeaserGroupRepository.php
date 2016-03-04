@@ -71,7 +71,7 @@ class TeaserGroupRepository implements TeaserGroupRepositoryInterface
     /**
      * @var Data\TeaserGroupInterface[]
      */
-    protected $instances;
+    protected $instances = [];
 
     /**
      * TeaserGroupRepository constructor.

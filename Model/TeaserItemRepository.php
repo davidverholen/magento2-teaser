@@ -71,7 +71,7 @@ class TeaserItemRepository implements TeaserItemRepositoryInterface
     /**
      * @var Data\TeaserItemInterface[]
      */
-    protected $instances;
+    protected $instances = [];
 
     /**
      * TeaserItemRepository constructor.
