@@ -69,13 +69,18 @@ class TeaserGroupRepository implements TeaserGroupRepositoryInterface
     protected $teaserGroupFactory;
 
     /**
+     * @var Data\TeaserGroupInterface[]
+     */
+    protected $instances;
+
+    /**
      * TeaserGroupRepository constructor.
      *
      * @param TeaserGroupResource                          $resource
      * @param TeaserGroupCollectionFactory                 $teaserGroupCollectionFactory
      * @param Data\TeaserGroupSearchResultInterfaceFactory $searchResultsFactory
-     * @param DataObjectHelper                            $dataObjectHelper
-     * @param DataObjectProcessor                         $dataObjectProcessor
+     * @param DataObjectHelper                             $dataObjectHelper
+     * @param DataObjectProcessor                          $dataObjectProcessor
      * @param Data\TeaserGroupInterfaceFactory             $teaserGroupFactory
      */
     public function __construct(
@@ -129,14 +134,18 @@ class TeaserGroupRepository implements TeaserGroupRepositoryInterface
      */
     public function getById($teaserGroupId)
     {
-        /** @var TeaserGroup $teaserGroup */
-        $teaserGroup = $this->teaserGroupFactory->create();
-        $this->resource->load($teaserGroup, $teaserGroupId);
-        if (!$teaserGroup->getId()) {
-            throw new NoSuchEntityException(__('Teaser Group with id "%1" does not exist.', $teaserGroupId));
+        if (false === array_key_exists($teaserGroupId, $this->instances)) {
+            /** @var TeaserGroup $teaserGroup */
+            $teaserGroup = $this->teaserGroupFactory->create();
+            $this->resource->load($teaserGroup, $teaserGroupId);
+            if (!$teaserGroup->getId()) {
+                throw new NoSuchEntityException(__('Teaser Group with id "%1" does not exist.', $teaserGroupId));
+            }
+
+            $this->instances[$teaserGroupId] = $teaserGroup;
         }
 
-        return $teaserGroup;
+        return $this->instances[$teaserGroupId];
     }
 
     /**

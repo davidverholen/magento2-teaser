@@ -30,6 +30,8 @@ use Magento\Framework\Registry;
  * @author   David Verholen <david@verholen.com>
  * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
  * @link     http://github.com/davidverholen
+ *
+ * @method TeaserGroupResource getResource()
  */
 class TeaserGroup extends AbstractModel implements TeaserGroupInterface
 {
@@ -105,6 +107,22 @@ class TeaserGroup extends AbstractModel implements TeaserGroupInterface
         }
 
         return $this->teaserItemsCollection;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTeaserItemsPosition()
+    {
+        if (!$this->getId()) {
+            return [];
+        }
+
+        if (false === $this->hasData('teaser_items_position')) {
+            $this->setData('teaser_items_position', $this->getResource()->getTeaserItemsPosition($this));
+        }
+
+        return $this->getData('teaser_items_position');
     }
 
     /**

@@ -69,6 +69,11 @@ class TeaserItemRepository implements TeaserItemRepositoryInterface
     protected $teaserItemFactory;
 
     /**
+     * @var Data\TeaserItemInterface[]
+     */
+    protected $instances;
+
+    /**
      * TeaserItemRepository constructor.
      *
      * @param TeaserItemResource                          $resource
@@ -129,14 +134,19 @@ class TeaserItemRepository implements TeaserItemRepositoryInterface
      */
     public function getById($teaserItemId)
     {
-        /** @var TeaserItem $teaserItem */
-        $teaserItem = $this->teaserItemFactory->create();
-        $this->resource->load($teaserItem, $teaserItemId);
-        if (!$teaserItem->getId()) {
-            throw new NoSuchEntityException(__('Teaser Item with id "%1" does not exist.', $teaserItemId));
+        if (false === array_key_exists($teaserItemId, $this->instances)) {
+            /** @var TeaserItem $teaserItem */
+            $teaserItem = $this->teaserItemFactory->create();
+            $this->resource->load($teaserItem, $teaserItemId);
+            if (!$teaserItem->getId()) {
+                throw new NoSuchEntityException(__('Teaser Item with id "%1" does not exist.', $teaserItemId));
+            }
+
+            $this->instances[$teaserItemId] = $teaserItem;
         }
 
-        return $teaserItem;
+
+        return $this->instances[$teaserItemId];
     }
 
     /**
