@@ -71,6 +71,12 @@ class TeaserItem implements InstallSchemaInterface
             ['nullable' => true],
             'Teaser Item Image Path'
         )->addColumn(
+            TeaserItemInterface::MOBILE_IMAGE_PATH,
+            Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Mobile Teaser Item Image Path'
+        )->addColumn(
             TeaserItemInterface::CREATION_DATE,
             Table::TYPE_TIMESTAMP,
             null,

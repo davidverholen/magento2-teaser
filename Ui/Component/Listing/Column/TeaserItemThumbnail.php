@@ -70,9 +70,9 @@ class TeaserItemThumbnail extends Column
             foreach ($dataSource['data']['items'] as & $item) {
                 $teaserItem = new DataObject($item);
                 $item[$fieldName . '_src']
-                    = $this->getTeaserItemUrl($teaserItem);
+                    = $this->getTeaserItemUrl($teaserItem, $fieldName);
                 $item[$fieldName . '_orig_src']
-                    = $this->getTeaserItemUrl($teaserItem);
+                    = $this->getTeaserItemUrl($teaserItem, $fieldName);
                 $item[$fieldName . '_alt']
                     = $teaserItem->getData(TeaserItemInterface::TITLE);
                 $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
@@ -90,14 +90,16 @@ class TeaserItemThumbnail extends Column
      *
      * @param DataObject $teaserItem
      *
+     * @param            $fieldName
+     *
      * @return string
      */
-    protected function getTeaserItemUrl(DataObject $teaserItem)
+    protected function getTeaserItemUrl(DataObject $teaserItem, $fieldName)
     {
         return implode('/', [
             rtrim($this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA), '/'),
             Image::TEASER_ITEM_IMAGE_URL_PATH,
-            $teaserItem->getData(TeaserItemInterface::IMAGE_PATH)
+            $teaserItem->getData($fieldName)
         ]);
     }
 }

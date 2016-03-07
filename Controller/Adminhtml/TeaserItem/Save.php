@@ -44,7 +44,8 @@ class Save extends TeaserItem
             return $resultRedirect->setPath('*/*/');
         }
 
-        $generalData = $this->imagePreprocessing($data[self::GENERAL_DATA_KEY]);
+        $generalData = $this->imagePreprocessing($data[self::GENERAL_DATA_KEY], 'image_group');
+        $generalData = $this->imagePreprocessing($generalData, 'mobile_image_group');
 
         $id = $this->getRequest()->getParam('id', null);
 
@@ -87,21 +88,23 @@ class Save extends TeaserItem
      *
      * @param array $data
      *
+     * @param       $imageFieldName
+     *
      * @return array
      */
-    public function imagePreprocessing($data)
+    public function imagePreprocessing($data, $imageFieldName)
     {
-        if (isset($data['image_group']) && is_array($data['image_group'])) {
-            if (isset($data['image_group']['savedImage']['delete'])) {
-                $delete = $data['image_group']['savedImage']['delete'];
-                $data['image_group']['delete'] = filter_var($delete, FILTER_VALIDATE_BOOLEAN);
+        if (isset($data[$imageFieldName]) && is_array($data[$imageFieldName])) {
+            if (isset($data[$imageFieldName]['savedImage']['delete'])) {
+                $delete = $data[$imageFieldName]['savedImage']['delete'];
+                $data[$imageFieldName]['delete'] = filter_var($delete, FILTER_VALIDATE_BOOLEAN);
             }
-            if (isset($_FILES[self::GENERAL_DATA_KEY]['name']['image_group'])) {
-                $imageGroupName = $_FILES[self::GENERAL_DATA_KEY]['name']['image_group'];
-                $data['image_group']['value'] = $imageGroupName['savedImage']['value'];
+            if (isset($_FILES[self::GENERAL_DATA_KEY]['name'][$imageFieldName])) {
+                $imageGroupName = $_FILES[self::GENERAL_DATA_KEY]['name'][$imageFieldName];
+                $data[$imageFieldName]['value'] = $imageGroupName['savedImage']['value'];
             }
-            $data['image_additional_data'] = $data['image_group'];
-            unset($data['image_group']);
+            $data['image_additional_data'][$imageFieldName] = $data[$imageFieldName];
+            unset($data[$imageFieldName]);
         }
 
         return $data;

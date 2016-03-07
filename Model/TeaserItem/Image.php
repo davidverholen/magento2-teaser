@@ -82,38 +82,47 @@ class Image extends DataObject
     /**
      * @param TeaserItemInterface|TeaserItem $teaserItem
      *
+     * @param                                $imageGroupName
+     *
+     * @param string                         $imageFieldName
+     *
      * @return Image
      */
-    public function afterSave(TeaserItemInterface $teaserItem)
-    {
-        $value = $teaserItem->getData('image_additional_data');
+    public function afterSave(
+        TeaserItemInterface $teaserItem,
+        $imageGroupName,
+        $imageFieldName = TeaserItemInterface::IMAGE_PATH
+    ) {
+        $value = $teaserItem->getData('image_additional_data')[$imageGroupName];
         if (empty($value) && empty($_FILES)) {
             return $this;
         }
 
         if (is_array($value) && !empty($value['delete'])) {
-            $teaserItem->setData($this->getImageAttributeName(), '');
-            $this->updateImageAttribute($teaserItem);
+            $teaserItem->setData($imageFieldName, '');
+            $this->updateImageAttribute($teaserItem, $imageFieldName);
             return $this;
         }
 
-        if (!isset($_FILES['general']['tmp_name']['image_group']['savedImage']['value'])
-            || !isset($_FILES['general']['name']['image_group']['savedImage']['value'])
+        if (!isset($_FILES['general']['tmp_name'][$imageGroupName]['savedImage']['value'])
+            || !isset($_FILES['general']['name'][$imageGroupName]['savedImage']['value'])
         ) {
             return $this;
         }
 
         try {
             /** @var $uploader Uploader */
-            $uploader = $this->fileUploaderFactory->create(['fileId' => [
-                'tmp_name' => $_FILES['general']['tmp_name']['image_group']['savedImage']['value'],
-                'name' => $_FILES['general']['name']['image_group']['savedImage']['value']
-            ]]);
+            $uploader = $this->fileUploaderFactory->create([
+                'fileId' => [
+                    'tmp_name' => $_FILES['general']['tmp_name'][$imageGroupName]['savedImage']['value'],
+                    'name' => $_FILES['general']['name'][$imageGroupName]['savedImage']['value']
+                ]
+            ]);
             $uploader->setAllowedExtensions(['jpg', 'jpeg', 'gif', 'png']);
             $uploader->setAllowRenameFiles(true);
             $result = $uploader->save($this->getImageDirPath());
-            $teaserItem->setData($this->getImageAttributeName(), $result['file']);
-            $this->updateImageAttribute($teaserItem);
+            $teaserItem->setData($imageFieldName, $result['file']);
+            $this->updateImageAttribute($teaserItem, $imageFieldName);
         } catch (\Exception $e) {
             if ($e->getCode() != Uploader::TMP_NAME_EMPTY) {
                 $this->logger->critical($e);
@@ -126,13 +135,17 @@ class Image extends DataObject
     /**
      * @param TeaserItemInterface|TeaserItem $teaserItem
      *
+     * @param string                         $imageAttribute
+     *
      * @return int
      */
-    protected function updateImageAttribute(TeaserItemInterface $teaserItem)
-    {
+    protected function updateImageAttribute(
+        TeaserItemInterface $teaserItem,
+        $imageAttribute = TeaserItemInterface::IMAGE_PATH
+    ) {
         return $teaserItem->getResource()->getConnection()->update(
             TeaserItemResource::TABLE_NAME,
-            [$this->getImageAttributeName() => $teaserItem->getData($this->getImageAttributeName())],
+            [$imageAttribute => $teaserItem->getData($imageAttribute)],
             [TeaserItemInterface::TEASER_ITEM_ID . '=?' => $teaserItem->getId()]
         );
     }
@@ -141,30 +154,32 @@ class Image extends DataObject
      * getImageUrl
      *
      * @param TeaserItemInterface $teaserItem
+     * @param string              $imageAttribute
      *
      * @return string
      */
-    public function getImageUrl(TeaserItemInterface $teaserItem)
+    public function getImageUrl(TeaserItemInterface $teaserItem, $imageAttribute = TeaserItemInterface::IMAGE_PATH)
     {
         return implode('/', [
             rtrim($this->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA), '/'),
             static::TEASER_ITEM_IMAGE_URL_PATH,
-            $teaserItem->getImagePath()
+            $teaserItem->getData($imageAttribute)
         ]);
     }
 
     /**
      * getImagePath
      *
-     * @param TeaserItemInterface $teaserItem
+     * @param TeaserItemInterface|TeaserItem $teaserItem
+     * @param string                         $imageAttribute
      *
      * @return string
      */
-    public function getImagePath(TeaserItemInterface $teaserItem)
+    public function getImagePath(TeaserItemInterface $teaserItem, $imageAttribute = TeaserItemInterface::IMAGE_PATH)
     {
         return implode(DIRECTORY_SEPARATOR, [
             $this->getImageDirPath(),
-            $teaserItem->getImagePath()
+            $teaserItem->getData($imageAttribute)
         ]);
     }
 
@@ -188,13 +203,5 @@ class Image extends DataObject
     protected function getStore()
     {
         return $this->storeManager->getStore();
-    }
-
-    /**
-     * @return string
-     */
-    protected function getImageAttributeName()
-    {
-        return TeaserItemInterface::IMAGE_PATH;
     }
 }

@@ -98,7 +98,8 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function afterSave()
     {
         parent::afterSave();
-        $this->imageAttributeModel->afterSave($this);
+        $this->imageAttributeModel->afterSave($this, 'image_group', TeaserItemInterface::IMAGE_PATH);
+        $this->imageAttributeModel->afterSave($this, 'mobile_image_group', TeaserItemInterface::MOBILE_IMAGE_PATH);
 
         return $this;
     }
@@ -132,6 +133,16 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function getImagePath()
     {
         return (string)$this->getData(static::IMAGE_PATH);
+    }
+
+    /**
+     * getMobileImagePath
+     *
+     * @return string
+     */
+    public function getMobileImagePath()
+    {
+        return (string)$this->getData(static::MOBILE_IMAGE_PATH);
     }
 
     /**
@@ -198,6 +209,18 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function setImagePath($imagePath)
     {
         return $this->setData(static::IMAGE_PATH, $imagePath);
+    }
+
+    /**
+     * setMobileImagePath
+     *
+     * @param string $mobileImagePath
+     *
+     * @return TeaserItemInterface
+     */
+    public function setMobileImagePath($mobileImagePath)
+    {
+        return $this->setData(static::MOBILE_IMAGE_PATH, $mobileImagePath);
     }
 
     /**

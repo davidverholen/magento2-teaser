@@ -28,6 +28,7 @@ interface TeaserItemInterface
     const TITLE = 'title';
     const CMS_BLOCK_IDENTIFIER = 'cms_block_identifier';
     const IMAGE_PATH = 'image_path';
+    const MOBILE_IMAGE_PATH = 'mobile_image_path';
     const IS_ACTIVE = 'is_active';
     const MODIFIED_DATE = 'modified_date';
     const CREATION_DATE = 'creation_date';
@@ -60,6 +61,13 @@ interface TeaserItemInterface
      * @return string
      */
     public function getImagePath();
+
+    /**
+     * getMobileImagePath
+     *
+     * @return string
+     */
+    public function getMobileImagePath();
 
     /**
      * getIsActive
@@ -108,6 +116,15 @@ interface TeaserItemInterface
      * @return TeaserItemInterface
      */
     public function setImagePath($imagePath);
+
+    /**
+     * setMobileImagePath
+     *
+     * @param string $mobileImagePath
+     *
+     * @return TeaserItemInterface
+     */
+    public function setMobileImagePath($mobileImagePath);
 
     /**
      * setIsActive
