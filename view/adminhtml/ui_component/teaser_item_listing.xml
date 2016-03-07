@@ -98,6 +98,7 @@
                     </item>
                     <item name="filter" xsi:type="string">text</item>
                     <item name="label" xsi:type="string" translate="true">CSS Class</item>
+                    <item name="sortOrder" xsi:type="number">25</item>
                 </item>
             </argument>
         </column>
