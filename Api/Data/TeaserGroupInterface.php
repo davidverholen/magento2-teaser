@@ -26,6 +26,7 @@ interface TeaserGroupInterface
 {
     const TEASER_GROUP_ID = 'teaser_group_id';
     const TITLE = 'title';
+    const CSS_CLASS = 'css_class';
     const IS_ACTIVE = 'is_active';
     const MODIFIED_DATE = 'modified_date';
     const CREATION_DATE = 'creation_date';
@@ -43,6 +44,14 @@ interface TeaserGroupInterface
      * @return string
      */
     public function getTitle();
+
+    /**
+     * getCssClass
+     *
+     * @return string
+     */
+    public function getCssClass();
+
 
     /**
      * getIsActive
@@ -73,6 +82,15 @@ interface TeaserGroupInterface
      * @return TeaserGroupInterface
      */
     public function setTitle($title);
+
+    /**
+     * setCssClass
+     *
+     * @param string $cssClass
+     *
+     * @return TeaserGroupInterface
+     */
+    public function setCssClass($cssClass);
 
     /**
      * setIsActive

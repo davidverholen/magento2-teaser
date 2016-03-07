@@ -68,6 +68,17 @@
                 </item>
             </argument>
         </field>
+        <field name="css_class">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">CSS Class</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
+        </field>
         <field name="cms_block_identifier">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>

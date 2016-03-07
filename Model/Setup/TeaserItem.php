@@ -59,6 +59,12 @@ class TeaserItem implements InstallSchemaInterface
             ['nullable' => true],
             'Teaser Item Title'
         )->addColumn(
+            TeaserItemInterface::CSS_CLASS,
+            Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Teaser Item Css Class'
+        )->addColumn(
             TeaserItemInterface::CMS_BLOCK_IDENTIFIER,
             Table::TYPE_TEXT,
             255,

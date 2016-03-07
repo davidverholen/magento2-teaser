@@ -26,6 +26,7 @@ interface TeaserItemInterface
 {
     const TEASER_ITEM_ID = 'teaser_item_id';
     const TITLE = 'title';
+    const CSS_CLASS = 'css_class';
     const CMS_BLOCK_IDENTIFIER = 'cms_block_identifier';
     const IMAGE_PATH = 'image_path';
     const MOBILE_IMAGE_PATH = 'mobile_image_path';
@@ -53,6 +54,13 @@ interface TeaserItemInterface
      * @return string
      */
     public function getTitle();
+
+    /**
+     * getCssClass
+     *
+     * @return string
+     */
+    public function getCssClass();
 
 
     /**
@@ -98,6 +106,15 @@ interface TeaserItemInterface
      * @return TeaserItemInterface
      */
     public function setTitle($title);
+
+    /**
+     * setCssClass
+     *
+     * @param string $cssClass
+     *
+     * @return TeaserItemInterface
+     */
+    public function setCssClass($cssClass);
 
     /**
      * setCmsBlockIdentifier

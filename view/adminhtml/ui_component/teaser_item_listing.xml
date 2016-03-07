@@ -90,6 +90,17 @@
                 </item>
             </argument>
         </column>
+        <column name="css_class">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                    </item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CSS Class</item>
+                </item>
+            </argument>
+        </column>
         <column name="cms_block_identifier">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>

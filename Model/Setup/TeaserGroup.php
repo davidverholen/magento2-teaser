@@ -50,33 +50,39 @@ class TeaserGroup implements InstallSchemaInterface
             Table::TYPE_SMALLINT,
             null,
             ['identity' => true, 'nullable' => false, 'primary' => true],
-            'Teaser Item ID'
+            'Teaser Group ID'
         )->addColumn(
             TeaserGroupInterface::TITLE,
             Table::TYPE_TEXT,
             255,
             ['nullable' => true],
-            'Teaser Item Title'
+            'Teaser Group Title'
+        )->addColumn(
+            TeaserGroupInterface::CSS_CLASS,
+            Table::TYPE_TEXT,
+            255,
+            ['nullable' => true],
+            'Teaser Group Css Class'
         )->addColumn(
             TeaserGroupInterface::CREATION_DATE,
             Table::TYPE_TIMESTAMP,
             null,
             ['nullable' => false, 'default' => Table::TIMESTAMP_INIT],
-            'Teaser Item Creation Time'
+            'Teaser Group Creation Time'
         )->addColumn(
             TeaserGroupInterface::MODIFIED_DATE,
             Table::TYPE_TIMESTAMP,
             null,
             ['nullable' => false, 'default' => Table::TIMESTAMP_INIT_UPDATE],
-            'Teaser Item Modification Time'
+            'Teaser Group Modification Time'
         )->addColumn(
             TeaserGroupInterface::IS_ACTIVE,
             Table::TYPE_SMALLINT,
             null,
             ['nullable' => false, 'default' => '1'],
-            'Is Teaser Item Active'
+            'Is Teaser Group Active'
         )->setComment(
-            'Teaser Item Table'
+            'Teaser Group Table'
         );
 
         $setup->getConnection()->createTable($table);
