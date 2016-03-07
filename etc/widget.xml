@@ -16,23 +16,6 @@
                     </data>
                 </block>
             </parameter>
-            <parameter name="teaser_item_renderer" xsi:type="select" visible="true" sort_order="30">
-                <label translate="true">Teaser Item Renderer</label>
-                <options>
-                    <option name="default" value="default" selected="true">
-                        <label translate="true">Default</label>
-                    </option>
-                    <option name="text_only" value="text_only">
-                        <label translate="true">Text Only</label>
-                    </option>
-                    <option name="split" value="split">
-                        <label translate="true">Split</label>
-                    </option>
-                    <option name="bg" value="bg">
-                        <label translate="true">Background</label>
-                    </option>
-                </options>
-            </parameter>
             <parameter name="template" xsi:type="select" visible="true" sort_order="30">
                 <label translate="true">Template</label>
                 <options>
@@ -58,23 +41,6 @@
                         </item>
                     </data>
                 </block>
-            </parameter>
-            <parameter name="renderer" xsi:type="select" visible="true" sort_order="30">
-                <label translate="true">Renderer</label>
-                <options>
-                    <option name="default" value="default" selected="true">
-                        <label translate="true">Default</label>
-                    </option>
-                    <option name="text_only" value="text_only">
-                        <label translate="true">Text Only</label>
-                    </option>
-                    <option name="split" value="split">
-                        <label translate="true">Split</label>
-                    </option>
-                    <option name="bg" value="bg">
-                        <label translate="true">Background</label>
-                    </option>
-                </options>
             </parameter>
         </parameters>
     </widget>

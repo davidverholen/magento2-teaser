@@ -41,6 +41,14 @@ class RendererFactory
     }
 
     /**
+     * @return array
+     */
+    public function getAvailableRenderer()
+    {
+        return array_keys($this->renderer);
+    }
+
+    /**
      * Create class instance with specified parameters
      *
      * @param string $type

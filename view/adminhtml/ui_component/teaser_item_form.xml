@@ -173,6 +173,21 @@
                 </argument>
             </field>-->
         </container>
+        <field name="renderer">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\Renderer</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Renderer</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">general</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
         <field name="is_active">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\IsActive</item>

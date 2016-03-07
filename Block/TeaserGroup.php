@@ -60,13 +60,12 @@ class TeaserGroup extends Template
 
     /**
      * @param TeaserItemInterface $teaserItem
-     * @param string              $rendererType
      *
      * @return string
      */
-    public function renderItem(TeaserItemInterface $teaserItem, $rendererType = 'default')
+    public function renderItem(TeaserItemInterface $teaserItem)
     {
-        return $this->teaserItemRendererFactory->get($rendererType)
+        return $this->teaserItemRendererFactory->get($teaserItem->getRenderer())
             ->setTeaserItem($teaserItem)
             ->toHtml();
     }

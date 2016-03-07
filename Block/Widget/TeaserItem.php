@@ -47,7 +47,7 @@ class TeaserItem extends TeaserGroupBlock implements BlockInterface
      */
     protected function _toHtml()
     {
-        return $this->renderItem($this->getTeaserItem(), $this->getData('renderer'));
+        return $this->renderItem($this->getTeaserItem());
     }
 
     /**

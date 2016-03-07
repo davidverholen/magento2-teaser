@@ -193,6 +193,16 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     }
 
     /**
+     * getRenderer
+     *
+     * @return string
+     */
+    public function getRenderer()
+    {
+        return (string)$this->getData(static::RENDERER);
+    }
+
+    /**
      * getIsActive
      *
      * @return boolean
@@ -280,6 +290,18 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function setMobileImagePath($mobileImagePath)
     {
         return $this->setData(static::MOBILE_IMAGE_PATH, $mobileImagePath);
+    }
+
+    /**
+     * setRenderer
+     *
+     * @param string $renderer
+     *
+     * @return TeaserItemInterface
+     */
+    public function setRenderer($renderer)
+    {
+        return $this->setData(static::RENDERER, $renderer);
     }
 
     /**
