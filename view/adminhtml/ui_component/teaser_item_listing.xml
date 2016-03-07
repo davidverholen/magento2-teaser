@@ -114,7 +114,7 @@
                 </item>
             </argument>
         </column>
-        <column name="image_path" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserItemThumbnail">
+        <!--<column name="image_path" class="DavidVerholen\Teaser\Ui\Component\Listing\Column\TeaserItemThumbnail">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
@@ -147,10 +147,10 @@
                     <item name="editor" xsi:type="string">select</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="label" xsi:type="string" translate="true">Renderer</item>
-                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="sortOrder" xsi:type="number">55</item>
                 </item>
             </argument>
-        </column>
+        </column>-->
         <column name="is_active">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\IsActive</item>

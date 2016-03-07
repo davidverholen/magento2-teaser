@@ -132,6 +132,19 @@
                 </argument>
             </field>-->
         </container>
+        <field name="image_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Current Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">general</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">41</item>
+                </item>
+            </argument>
+        </field>
         <container name="mobile_image_group">
             <argument name="data" xsi:type="array">
                 <item name="type" xsi:type="string">group</item>
@@ -173,6 +186,19 @@
                 </argument>
             </field>-->
         </container>
+        <field name="mobile_image_path">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Current Mobile Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">general</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                    <item name="sortOrder" xsi:type="number">51</item>
+                </item>
+            </argument>
+        </field>
         <field name="renderer">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\TeaserItem\Source\Renderer</item>
