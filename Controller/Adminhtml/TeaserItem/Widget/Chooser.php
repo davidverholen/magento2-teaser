@@ -1,19 +1,19 @@
 <?php
-namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup\Widget;
+namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem\Widget;
 
-use DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup\Widget\Chooser as ChooserBlock;
-use DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface;
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
-use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup\Builder;
-use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup\CollectionFactory as TeaserGroupCollectionFactory;
-use DavidVerholen\Teaser\Api\Data\TeaserGroupInterfaceFactory;
+use DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Widget\Chooser as ChooserBlock;
+use DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
+use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem\Builder;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\CollectionFactory as TeaserItemCollectionFactory;
+use DavidVerholen\Teaser\Api\Data\TeaserItemInterfaceFactory;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\View\LayoutFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
-class Chooser extends TeaserGroup
+class Chooser extends TeaserItem
 {
     /**
      * @var LayoutFactory
@@ -22,19 +22,19 @@ class Chooser extends TeaserGroup
 
     public function __construct(
         Action\Context $context,
-        TeaserGroupRepositoryInterface $teaserGroupRepository,
-        Builder $teaserGroupBuilder,
-        TeaserGroupCollectionFactory $teaserGroupCollectionFactory,
-        TeaserGroupInterfaceFactory $teaserGroupFactory,
+        TeaserItemRepositoryInterface $teaserItemRepository,
+        Builder $teaserItemBuilder,
+        TeaserItemCollectionFactory $teaserItemCollectionFactory,
+        TeaserItemInterfaceFactory $teaserItemFactory,
         Filter $filter,
         LayoutFactory $layoutFactory
     ) {
         parent::__construct(
             $context,
-            $teaserGroupRepository,
-            $teaserGroupBuilder,
-            $teaserGroupCollectionFactory,
-            $teaserGroupFactory,
+            $teaserItemRepository,
+            $teaserItemBuilder,
+            $teaserItemCollectionFactory,
+            $teaserItemFactory,
             $filter
         );
         $this->layoutFactory = $layoutFactory;

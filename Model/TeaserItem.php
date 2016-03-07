@@ -17,6 +17,8 @@ use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection;
 use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem as TeaserItemResource;
 use DavidVerholen\Teaser\Model\TeaserItem\Image;
+use Magento\Cms\Model\Block;
+use Magento\Cms\Model\BlockFactory;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
@@ -55,6 +57,11 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     protected $imageAttributeModel;
 
     /**
+     * @var BlockFactory
+     */
+    protected $cmsBlockFactory;
+
+    /**
      * TeaserItem constructor.
      *
      * @param Context            $context
@@ -62,6 +69,7 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      * @param TeaserItemResource $resource
      * @param Collection         $resourceCollection
      * @param Image              $imageAttributeModel
+     * @param BlockFactory       $cmsBlockFactory
      * @param array              $data
      */
     public function __construct(
@@ -70,10 +78,12 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
         ResourceModel\TeaserItem $resource,
         Collection $resourceCollection,
         Image $imageAttributeModel,
+        BlockFactory $cmsBlockFactory,
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->imageAttributeModel = $imageAttributeModel;
+        $this->cmsBlockFactory = $cmsBlockFactory;
     }
 
     /**
@@ -85,11 +95,38 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     }
 
     /**
+     * @return Block
+     */
+    public function getCmsBlockModel()
+    {
+        if (false === $this->hasData('cms_block_model') && false === empty($this->getCmsBlockIdentifier())) {
+            /** @var Block $model */
+            $model = $this->cmsBlockFactory->create();
+
+            if ($this->getCmsBlockIdentifier()) {
+                $model->load($this->getCmsBlockIdentifier(), 'identifier');
+            }
+
+            $this->setData('cms_block_model', $model);
+        }
+
+        return $this->getData('cms_block_model');
+    }
+
+    /**
      * @return string
      */
     public function getImageUrl()
     {
-        return $this->imageAttributeModel->getImageUrl($this);
+        return $this->imageAttributeModel->getImageUrl($this, TeaserItemInterface::IMAGE_PATH);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileImageUrl()
+    {
+        return $this->imageAttributeModel->getImageUrl($this, TeaserItemInterface::MOBILE_IMAGE_PATH);
     }
 
     /**
@@ -113,6 +150,16 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function getTitle()
     {
         return (string)$this->getData(static::TITLE);
+    }
+
+    /**
+     * getCssClass
+     *
+     * @return string
+     */
+    public function getCssClass()
+    {
+        return (string)$this->getData(static::CSS_CLASS);
     }
 
     /**
@@ -185,6 +232,18 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function setTitle($title)
     {
         return $this->setData(static::TITLE, $title);
+    }
+
+    /**
+     * setCssClass
+     *
+     * @param string $cssClass
+     *
+     * @return TeaserItemInterface
+     */
+    public function setCssClass($cssClass)
+    {
+        return $this->setData(static::CSS_CLASS, $cssClass);
     }
 
     /**

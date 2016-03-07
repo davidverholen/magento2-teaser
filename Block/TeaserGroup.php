@@ -33,8 +33,6 @@ class TeaserGroup extends Template
      * @param TeaserGroupRepositoryInterface $teaserGroupRepository
      * @param RendererFactory                $teaserItemRendererFactory
      * @param array                          $data
-     *
-     * @internal param array $renderer
      */
     public function __construct(
         Template\Context $context,
@@ -48,7 +46,7 @@ class TeaserGroup extends Template
     }
 
     /**
-     * @return TeaserGroupInterface
+     * @return TeaserGroupInterface|\DavidVerholen\Teaser\Model\TeaserGroup
      */
     public function getTeaserGroup()
     {

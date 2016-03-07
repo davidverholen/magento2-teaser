@@ -144,6 +144,16 @@ class TeaserGroup extends AbstractModel implements TeaserGroupInterface
     }
 
     /**
+     * getCssClass
+     *
+     * @return string
+     */
+    public function getCssClass()
+    {
+        return (string)$this->getData(static::CSS_CLASS);
+    }
+
+    /**
      * getIsActive
      *
      * @return boolean
@@ -183,6 +193,18 @@ class TeaserGroup extends AbstractModel implements TeaserGroupInterface
     public function setTitle($title)
     {
         return $this->setData(static::TITLE, $title);
+    }
+
+    /**
+     * setCssClass
+     *
+     * @param string $cssClass
+     *
+     * @return TeaserGroupInterface
+     */
+    public function setCssClass($cssClass)
+    {
+        return $this->setData(static::CSS_CLASS, $cssClass);
     }
 
     /**

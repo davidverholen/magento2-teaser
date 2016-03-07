@@ -133,7 +133,7 @@
                     <item name="sortable" xsi:type="boolean">false</item>
                     <item name="altField" xsi:type="string">title</item>
                     <item name="has_preview" xsi:type="string">1</item>
-                    <item name="label" xsi:type="string" translate="true">MobileImage</item>
+                    <item name="label" xsi:type="string" translate="true">Mobile Image</item>
                     <item name="sortOrder" xsi:type="number">50</item>
                 </item>
             </argument>

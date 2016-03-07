@@ -1,2 +1,21 @@
 <?php /** @var \DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer $block */ ?>
-
+<?php $teaserItem = $block->getTeaserItem() ?>
+<?php $cssClass = implode(' ', ['teaser', $teaserItem->getCssClass()]) ?>
+<div class="<?php /** @escapeNotVerified */ echo $cssClass ?>">
+    <?php if($teaserItem->getImagePath()): ?>
+        <div class="teaser__media">
+            <picture>
+                <?php if($teaserItem->getMobileImagePath()): ?>
+                    <source media="(max-width: 767px)" srcset="<?php /** @escapeNotVerified */ echo $teaserItem->getMobileImageUrl() ?>"/>
+                <?php endif; ?>
+                <source srcset="<?php /** @escapeNotVerified */ echo $teaserItem->getImageUrl() ?>"/>
+                <img src="<?php /** @escapeNotVerified */ echo $teaserItem->getImageUrl() ?>"/>
+            </picture>
+        </div>
+    <?php endif; ?>
+    <?php if ($teaserItem->getCmsBlockIdentifier()): ?>
+        <div class="teaser__content">
+            <div class="teaser__text"><?php /** @escapeNotVerified */ echo $block->renderCmsBlockHtml() ?></div>
+        </div>
+    <?php endif; ?>
+</div>

@@ -1,3 +1,5 @@
 <?php /** @var \DavidVerholen\Teaser\Block\Widget\TeaserGroup $block */ ?>
-<p><?php echo $block->getTeaserGroup()->getTitle() ?></p>
+<?php foreach($block->getTeaserGroup()->getTeaserItemsCollection() as $teaserItem): ?>
+    <?php /** @escapeNotVerified */ echo $block->renderItem($teaserItem) ?>
+<?php endforeach; ?>
 

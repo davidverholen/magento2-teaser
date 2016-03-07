@@ -16,11 +16,63 @@
                     </data>
                 </block>
             </parameter>
+            <parameter name="teaser_item_renderer" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Teaser Item Renderer</label>
+                <options>
+                    <option name="default" value="default" selected="true">
+                        <label translate="true">Default</label>
+                    </option>
+                    <option name="text_only" value="text_only">
+                        <label translate="true">Text Only</label>
+                    </option>
+                    <option name="split" value="split">
+                        <label translate="true">Split</label>
+                    </option>
+                    <option name="bg" value="bg">
+                        <label translate="true">Background</label>
+                    </option>
+                </options>
+            </parameter>
             <parameter name="template" xsi:type="select" visible="true" sort_order="30">
                 <label translate="true">Template</label>
                 <options>
                     <option name="default" value="teasergroup.phtml" selected="true">
                         <label translate="true">Default Teaser Group Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="davidverholen_teaser_item"
+            class="DavidVerholen\Teaser\Block\Widget\TeaserItem"
+            placeholder_image="DavidVerholen_Teaser::images/widget_teaser.png">
+        <label translate="true">Teaser Item</label>
+        <description translate="true">renders a teaser item</description>
+        <parameters>
+            <parameter name="teaser_item_id" xsi:type="block" visible="true" required="true" sort_order="20">
+                <label translate="true">Teaser Group</label>
+                <block class="DavidVerholen\Teaser\Block\Adminhtml\TeaserItem\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Teaser Item...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="renderer" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Renderer</label>
+                <options>
+                    <option name="default" value="default" selected="true">
+                        <label translate="true">Default</label>
+                    </option>
+                    <option name="text_only" value="text_only">
+                        <label translate="true">Text Only</label>
+                    </option>
+                    <option name="split" value="split">
+                        <label translate="true">Split</label>
+                    </option>
+                    <option name="bg" value="bg">
+                        <label translate="true">Background</label>
                     </option>
                 </options>
             </parameter>
