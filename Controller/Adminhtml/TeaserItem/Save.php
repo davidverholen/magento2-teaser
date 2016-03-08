@@ -28,6 +28,7 @@ use Magento\Framework\Controller\ResultFactory;
 class Save extends TeaserItem
 {
     const GENERAL_DATA_KEY = 'general';
+    const DISPLAY_DATA_KEY = 'display';
 
     /**
      * Save action
@@ -38,14 +39,15 @@ class Save extends TeaserItem
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $data = $this->getRequest()->getParams();
+        $post = $this->getRequest()->getParams();
 
-        if (false === isset($data[self::GENERAL_DATA_KEY])) {
+        if (false === isset($post[static::GENERAL_DATA_KEY]) || false === isset($post[static::DISPLAY_DATA_KEY])) {
             return $resultRedirect->setPath('*/*/');
         }
 
-        $generalData = $this->imagePreprocessing($data[self::GENERAL_DATA_KEY], 'image_group');
-        $generalData = $this->imagePreprocessing($generalData, 'mobile_image_group');
+        $data = $this->imagePreprocessing($post[static::GENERAL_DATA_KEY], 'image_group');
+        $data = $this->imagePreprocessing($data, 'mobile_image_group');
+        $data = array_merge($data, $post[static::DISPLAY_DATA_KEY]);
 
         $id = $this->getRequest()->getParam('id', null);
 
@@ -57,7 +59,7 @@ class Save extends TeaserItem
             return $resultRedirect->setPath('*/*/');
         }
 
-        $teaserItem->setData($generalData);
+        $teaserItem->setData($data);
 
         try {
             $this->teaserItemRepository->save($teaserItem);
@@ -65,7 +67,7 @@ class Save extends TeaserItem
             $this->_session->setFormData(false);
         } catch (\Exception $e) {
             $this->messageManager->addError($e->getMessage());
-            $this->_session->setFormData($generalData);
+            $this->_session->setFormData($data);
 
             return $resultRedirect->setPath(
                 '*/*/edit',
@@ -99,8 +101,8 @@ class Save extends TeaserItem
                 $delete = $data[$imageFieldName]['savedImage']['delete'];
                 $data[$imageFieldName]['delete'] = filter_var($delete, FILTER_VALIDATE_BOOLEAN);
             }
-            if (isset($_FILES[self::GENERAL_DATA_KEY]['name'][$imageFieldName])) {
-                $imageGroupName = $_FILES[self::GENERAL_DATA_KEY]['name'][$imageFieldName];
+            if (isset($_FILES[static::GENERAL_DATA_KEY]['name'][$imageFieldName])) {
+                $imageGroupName = $_FILES[static::GENERAL_DATA_KEY]['name'][$imageFieldName];
                 $data[$imageFieldName]['value'] = $imageGroupName['savedImage']['value'];
             }
             $data['image_additional_data'][$imageFieldName] = $data[$imageFieldName];

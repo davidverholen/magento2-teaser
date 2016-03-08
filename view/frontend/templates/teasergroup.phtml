@@ -1,5 +1,8 @@
 <?php /** @var \DavidVerholen\Teaser\Block\Widget\TeaserGroup $block */ ?>
-<?php foreach($block->getTeaserGroup()->getTeaserItemsCollection() as $teaserItem): ?>
-    <?php /** @escapeNotVerified */ echo $block->renderItem($teaserItem) ?>
-<?php endforeach; ?>
-
+<?php $teaserGroup = $block->getTeaserGroup() ?>
+<?php $cssClass = implode(' ', ['row teaserGroup', $teaserGroup->getCssClass()]) ?>
+<div class="<?php /** @escapeNotVerified */ echo $cssClass ?>">
+    <?php foreach ($teaserGroup->getTeaserItemsCollection() as $teaserItem): ?>
+        <?php /** @escapeNotVerified */ echo $block->renderItem($teaserItem) ?>
+    <?php endforeach; ?>
+</div>
