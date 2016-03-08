@@ -31,9 +31,12 @@ class SaveTest extends AbstractBackendController
         $teaserItem->load(static::TEASER_FIXTURE_TITLE, 'title');
 
         $newTitle = 'title';
-        $this->getRequest()->setPostValue(['general' => [
-            'title' => $newTitle
-        ]]);
+        $this->getRequest()->setPostValue([
+            'general' => [
+                'title' => $newTitle
+            ],
+            'display' => []
+        ]);
 
         $this->dispatch(implode('/', [$this->uri, 'id', $teaserItem->getId()]));
         $this->assertRedirect($this->stringStartsWith('http://localhost/index.php/backend/teaser/teaseritem/index/'));
@@ -56,6 +59,7 @@ class SaveTest extends AbstractBackendController
         $teaserItem->setCmsBlockIdentifier('fixture_cms_block')
             ->setImagePath('fixtureImage.png')
             ->setIsActive(true)
+            ->setRenderer('default')
             ->setTitle(static::TEASER_FIXTURE_TITLE);
 
         $teaserItem->save();
