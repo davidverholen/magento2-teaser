@@ -80,7 +80,6 @@
                     <item name="editor" xsi:type="array">
                         <item name="editorType" xsi:type="string">text</item>
                         <item name="validation" xsi:type="array">
-                            <item name="validate-xml-identifier" xsi:type="boolean">true</item>
                             <item name="required-entry" xsi:type="boolean">false</item>
                         </item>
                     </item>
@@ -108,10 +107,16 @@
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">select</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="editor" xsi:type="string">select</item>
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="label" xsi:type="string" translate="true">Cms Block</item>
                     <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">select</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="validate-xml-identifier" xsi:type="boolean">true</item>
+                            <item name="required-entry" xsi:type="boolean">false</item>
+                        </item>
+                    </item>
                 </item>
             </argument>
         </column>
