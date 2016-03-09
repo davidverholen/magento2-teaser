@@ -212,7 +212,7 @@
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string">Renderer</item>
                     <item name="visible" xsi:type="boolean">true</item>
-                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">text</item>
                     <item name="formElement" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">display</item>
                     <item name="validation" xsi:type="array">
@@ -227,7 +227,7 @@
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string">Status</item>
                     <item name="visible" xsi:type="boolean">true</item>
-                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">int</item>
                     <item name="formElement" xsi:type="string">select</item>
                     <item name="source" xsi:type="string">display</item>
                     <item name="validation" xsi:type="array">
