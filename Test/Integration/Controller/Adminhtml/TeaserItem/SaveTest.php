@@ -34,8 +34,7 @@ class SaveTest extends AbstractBackendController
         $this->getRequest()->setPostValue([
             'general' => [
                 'title' => $newTitle
-            ],
-            'display' => []
+            ]
         ]);
 
         $this->dispatch(implode('/', [$this->uri, 'id', $teaserItem->getId()]));

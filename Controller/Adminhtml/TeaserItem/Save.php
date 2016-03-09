@@ -28,7 +28,6 @@ use Magento\Framework\Controller\ResultFactory;
 class Save extends TeaserItem
 {
     const GENERAL_DATA_KEY = 'general';
-    const DISPLAY_DATA_KEY = 'display';
 
     /**
      * Save action
@@ -41,13 +40,12 @@ class Save extends TeaserItem
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $post = $this->getRequest()->getParams();
 
-        if (false === isset($post[static::GENERAL_DATA_KEY]) || false === isset($post[static::DISPLAY_DATA_KEY])) {
+        if (false === isset($post[static::GENERAL_DATA_KEY])) {
             return $resultRedirect->setPath('*/*/');
         }
 
         $data = $this->imagePreprocessing($post[static::GENERAL_DATA_KEY], 'image_group');
         $data = $this->imagePreprocessing($data, 'mobile_image_group');
-        $data = array_merge($data, $post[static::DISPLAY_DATA_KEY]);
 
         $id = $this->getRequest()->getParam('id', null);
 
