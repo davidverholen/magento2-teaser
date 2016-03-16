@@ -79,14 +79,14 @@ class Builder
      */
     public function build($teaserGroupId)
     {
-        if (!$teaserGroupId) {
-            return $this->teaserGroupFactory->create();
-        }
-
         $this->coreRegistry->register(
             RegistryConstants::CURRENT_TEASER_GROUP_ID,
             $teaserGroupId
         );
+
+        if (!$teaserGroupId) {
+            return $this->teaserGroupFactory->create();
+        }
 
         $teaserGroup = $this->teaserGroupRepository->getById($teaserGroupId);
 

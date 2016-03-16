@@ -2,12 +2,12 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       layout="admin-2columns-left"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <link src="DavidVerholen_Teaser::js/teasergroup/bootstrap/teaser-group-post-action.js"/>
-    </head>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="teaser_group_form"/>
+            <block class="DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup\Edit" name="teaser_teasergroup_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup\Edit\Tabs" name="teaser_teasergroup_edit_tabs"/>
         </referenceContainer>
     </body>
 </page>

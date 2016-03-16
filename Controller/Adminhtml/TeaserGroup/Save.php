@@ -13,8 +13,16 @@
 
 namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
 
+use DavidVerholen\Teaser\Api\Data\TeaserGroupInterfaceFactory;
+use DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface;
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserGroup;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup\CollectionFactory as TeaserGroupCollectionFactory;
+use Magento\Backend\App\Action;
+use Magento\Backend\Helper\Js;
+use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Model\AbstractModel;
+use Magento\Ui\Component\MassAction\Filter;
 
 /**
  * Class Save
@@ -28,6 +36,32 @@ use Magento\Framework\Controller\ResultFactory;
 class Save extends TeaserGroup
 {
     /**
+     * @var Js
+     */
+    private $jsHelper;
+
+    public function __construct(
+        Action\Context $context,
+        TeaserGroupRepositoryInterface $teaserGroupRepository,
+        Builder $teaserGroupBuilder,
+        TeaserGroupCollectionFactory $teaserGroupCollectionFactory,
+        TeaserGroupInterfaceFactory $teaserGroupFactory,
+        Filter $filter,
+        Js $jsHelper
+    ) {
+        parent::__construct(
+            $context,
+            $teaserGroupRepository,
+            $teaserGroupBuilder,
+            $teaserGroupCollectionFactory,
+            $teaserGroupFactory,
+            $filter
+        );
+
+        $this->jsHelper = $jsHelper;
+    }
+
+    /**
      * Save action
      *
      * @return \Magento\Framework\Controller\ResultInterface
@@ -36,23 +70,25 @@ class Save extends TeaserGroup
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
-        $generalData = $this->getRequest()->getParam('general');
+        $data = $this->getRequest()->getParams();
 
-        if (!$generalData) {
-            return $resultRedirect->setPath('*/*/');
+        if (!$data) {
+            return $this->prepareRedirect($resultRedirect);
         }
 
-        $id = $this->getRequest()->getParam('id', null);
+        $id = isset($data['teaser_group_id']) ? $data['teaser_group_id'] : null;
 
         /** @var \DavidVerholen\Teaser\Model\TeaserGroup $teaserGroup */
         $teaserGroup = $this->teaserGroupBuilder->build($id);
 
         if ($id && !$teaserGroup->getId()) {
             $this->messageManager->addError(__('This Teaser Group no longer exists.'));
-            return $resultRedirect->setPath('*/*/');
+
+            return $this->prepareRedirect($resultRedirect);
         }
 
-        $teaserGroup->setData($generalData);
+        $teaserGroup->setData($data);
+        $teaserGroup = $this->decodeTeaserItemLinks($teaserGroup);
 
         try {
             $this->teaserGroupRepository->save($teaserGroup);
@@ -60,21 +96,63 @@ class Save extends TeaserGroup
             $this->_session->setFormData(false);
         } catch (\Exception $e) {
             $this->messageManager->addError($e->getMessage());
-            $this->_session->setFormData($generalData);
+            $this->_session->setFormData($data);
 
-            return $resultRedirect->setPath(
-                '*/*/edit',
-                ['id' => $this->getRequest()->getParam('id')]
+            return $this->prepareRedirect(
+                $resultRedirect,
+                $this->getRequest()->getParam('id'),
+                'edit'
             );
         }
 
-        if ($this->getRequest()->getParam('back')) {
-            return $resultRedirect->setPath(
-                '*/*/edit',
-                ['id' => $teaserGroup->getId()]
-            );
+        return $this->prepareRedirect($resultRedirect, $teaserGroup->getId());
+    }
+
+    /**
+     * @param Redirect $redirect
+     * @param null     $id
+     *
+     * @param null     $forceBack
+     *
+     * @return $this
+     */
+    protected function prepareRedirect(Redirect $redirect, $id = null, $forceBack = null)
+    {
+        $back = $this->getRequest()->getParam('back', 'index');
+
+        if (null !== $forceBack) {
+            $back = $forceBack;
         }
 
-        return $resultRedirect->setPath('*/*/');
+        if ($back === 'edit') {
+            return $redirect->setPath('*/*/' . $back, [
+                'id' => $id
+            ]);
+        }
+
+        return $redirect->setPath('*/*/' . $back);
+    }
+
+    /**
+     * @param AbstractModel $object
+     *
+     * @return AbstractModel
+     */
+    public function decodeTeaserItemLinks(AbstractModel $object)
+    {
+        if (false === $object->hasData('links')
+            || false === array_key_exists('teaser_items', $object->getData('links'))
+            || !$object->getData('links')['teaser_items']
+        ) {
+            return $object;
+        }
+
+        $postedTeaserItems = $this->jsHelper->decodeGridSerializedInput($object->getData('links')['teaser_items']);
+
+        array_walk($postedTeaserItems, function (&$item) {
+            $item = $item['position'];
+        });
+
+        return $object->setData('posted_teaser_items', $postedTeaserItems);
     }
 }
