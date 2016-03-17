@@ -24,7 +24,7 @@ class NewActionTest extends AbstractBackendController
         $this->assertContains('<span>Save Teaser Group</span>', $content);
         $this->assertContains('<span>Back</span>', $content);
         $this->assertContains('<span>Save and Continue Edit</span>', $content);
-        $this->assertNotContains('<span>Reset</span>', $content);
+        $this->assertContains('<span>Reset</span>', $content);
         $this->assertNotContains('<span>Delete</span>', $content);
     }
 }

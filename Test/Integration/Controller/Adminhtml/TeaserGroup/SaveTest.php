@@ -31,9 +31,9 @@ class SaveTest extends AbstractBackendController
         $teaserGroup->load(static::TEASER_FIXTURE_TITLE, 'title');
 
         $newTitle = 'title';
-        $this->getRequest()->setPostValue(['general' => [
+        $this->getRequest()->setPostValue([
             'title' => $newTitle
-        ]]);
+        ]);
 
         $this->dispatch(implode('/', [$this->uri, 'id', $teaserGroup->getId()]));
         $this->assertRedirect($this->stringStartsWith('http://localhost/index.php/backend/teaser/teasergroup/index/'));

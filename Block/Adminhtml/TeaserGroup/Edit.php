@@ -9,6 +9,8 @@
 namespace DavidVerholen\Teaser\Block\Adminhtml\TeaserGroup;
 
 use DavidVerholen\Teaser\Api\Data\TeaserGroupInterface;
+use DavidVerholen\Teaser\Controller\RegistryConstants;
+use DavidVerholen\Teaser\Model\TeaserGroup;
 use Magento\Backend\Block\Widget\Context;
 use Magento\Backend\Block\Widget\Form\Container;
 use Magento\Framework\Registry;
@@ -23,9 +25,9 @@ class Edit extends Container
     protected $coreRegistry = null;
 
     /**
-     * @param Context $context
+     * @param Context  $context
      * @param Registry $registry
-     * @param array $data
+     * @param array    $data
      */
     public function __construct(
         Context $context,
@@ -45,20 +47,37 @@ class Edit extends Container
         $this->_blockGroup = 'DavidVerholen_Teaser';
         $this->_controller = 'adminhtml_teaserGroup';
         parent::_construct();
-        $this->buttonList->update('save', 'label', __('Save TeaserGroup'));
-        $this->buttonList->update('delete', 'label', __('Delete TeaserGroup'));
-        $this->buttonList->add(
-            'saveandcontinue',
-            [
-                'label' => __('Save and Continue Edit'),
-                'class' => 'save',
+        $this->buttonList->update('save', 'label', __('Save Teaser Group'));
+
+        if (false === $this->isNew()) {
+            $this->buttonList->add('delete', [
+                'label'          => __('Delete'),
+                'class'          => 'delete',
                 'data_attribute' => [
-                    'mage-init' => ['button' => ['event' => 'saveAndContinueEdit', 'target' => '#edit_form']],
+                    'mage-init' => [
+                        'button' => [
+                            'event'  => 'delete',
+                            'target' => '#edit_form'
+                        ]
+                    ],
                 ]
-            ],
-            -100
-        );
-        $this->_formScripts[] = "
+            ]);
+        }
+
+        $this->buttonList->add('saveandcontinue', [
+            'label'          => __('Save and Continue Edit'),
+            'class'          => 'save',
+            'data_attribute' => [
+                'mage-init' => [
+                    'button' => [
+                        'event'  => 'saveAndContinueEdit',
+                        'target' => '#edit_form'
+                    ]
+                ],
+            ]
+        ], -100);
+        $this->_formScripts[]
+            = "
             function toggleEditor() {
                 if (tinyMCE.getInstanceById('block_content') == null) {
                     tinyMCE.execCommand('mceAddControl', false, 'block_content');
@@ -68,6 +87,7 @@ class Edit extends Container
             }
         ";
     }
+
     /**
      * Get edit form container header text
      *
@@ -75,13 +95,33 @@ class Edit extends Container
      */
     public function getHeaderText()
     {
-        if ($this->coreRegistry->registry('teaser_teasergroup')->getId()) {
-            return __("Edit Teaser Group '%1'", $this->escapeHtml(
-                $this->coreRegistry->registry('cms_block')->getTitle()
-            ));
-        } else {
+        if ($this->isNew()) {
             return __('New Teaser Group');
+        } else {
+            return __("Edit Teaser Group '%1'", $this->escapeHtml(
+                $this->getTeaserGroup()->getTitle()
+            ));
         }
+    }
+
+    /**
+     * isNew
+     *
+     * @return bool
+     */
+    protected function isNew()
+    {
+        return !(bool)$this->getTeaserGroup()->getId();
+    }
+
+    /**
+     * getTeaserGroup
+     *
+     * @return TeaserGroup
+     */
+    protected function getTeaserGroup()
+    {
+        return $this->coreRegistry->registry(RegistryConstants::CURRENT_TEASER_GROUP);
     }
 
     /**

@@ -84,11 +84,10 @@ class Builder
             $teaserGroupId
         );
 
-        if (!$teaserGroupId) {
-            return $this->teaserGroupFactory->create();
-        }
+        $teaserGroup = (bool)$teaserGroupId
+            ? $this->teaserGroupRepository->getById($teaserGroupId)
+            : $this->teaserGroupFactory->create();
 
-        $teaserGroup = $this->teaserGroupRepository->getById($teaserGroupId);
 
         $this->coreRegistry->register(
             RegistryConstants::CURRENT_TEASER_GROUP,
