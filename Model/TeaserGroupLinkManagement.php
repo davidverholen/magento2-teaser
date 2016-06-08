@@ -8,7 +8,7 @@ use DavidVerholen\Teaser\Api\TeaserGroupLinkManagementInterface;
 use DavidVerholen\Teaser\Api\TeaserGroupLinkRepositoryInterface;
 use DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface;
 use DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface;
-use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem;
+use DavidVerholen\Teaser\Model\ResourceModel\TeaserItem as TeaserItemResource;
 
 class TeaserGroupLinkManagement implements TeaserGroupLinkManagementInterface
 {
@@ -23,7 +23,7 @@ class TeaserGroupLinkManagement implements TeaserGroupLinkManagementInterface
     protected $teaserItemRepository;
 
     /**
-     * @var TeaserItem
+     * @var TeaserItemResource
      */
     protected $teaserItemResource;
 
@@ -42,14 +42,14 @@ class TeaserGroupLinkManagement implements TeaserGroupLinkManagementInterface
      *
      * @param TeaserGroupRepositoryInterface      $teaserGroupRepository
      * @param TeaserItemRepositoryInterface       $teaserItemRepository
-     * @param TeaserItem                          $teaserItemResource
+     * @param TeaserItemResource                  $teaserItemResource
      * @param TeaserGroupLinkRepositoryInterface  $teaserGroupLinkRepository
      * @param TeaserGroupItemLinkInterfaceFactory $teaserItemLinkFactory
      */
     public function __construct(
         TeaserGroupRepositoryInterface $teaserGroupRepository,
         TeaserItemRepositoryInterface $teaserItemRepository,
-        TeaserItem $teaserItemResource,
+        TeaserItemResource $teaserItemResource,
         TeaserGroupLinkRepositoryInterface $teaserGroupLinkRepository,
         TeaserGroupItemLinkInterfaceFactory $teaserItemLinkFactory
     ) {
