@@ -5,7 +5,7 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
-                    <resource id="DavidVerholen_Teaser::teaser">
+                    <resource id="DavidVerholen_Teaser::teaser" title="Teaser">
                         <resource id="DavidVerholen_Teaser::teaser_group"
                                   title="Teaser Group"
                                   sortOrder="95">
