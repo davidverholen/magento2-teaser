@@ -16,6 +16,17 @@
                     </data>
                 </block>
             </parameter>
+            <parameter name="wrap_with_container" xsi:type="select" visible="true" sort_order="30">
+                <label translate="true">Wrap with Container</label>
+                <options>
+                    <option name="no" value="0" selected="true">
+                        <label translate="true">no</label>
+                    </option>
+                    <option name="yes" value="1" selected="false">
+                        <label translate="true">yes</label>
+                    </option>
+                </options>
+            </parameter>
             <parameter name="template" xsi:type="select" visible="true" sort_order="30">
                 <label translate="true">Template</label>
                 <options>
