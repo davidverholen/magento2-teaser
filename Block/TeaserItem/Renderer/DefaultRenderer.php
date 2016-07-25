@@ -60,8 +60,9 @@ class DefaultRenderer extends Template implements RendererInterface
      */
     public function renderCmsBlockHtml()
     {
+        $blockModel = $this->getTeaserItem()->getCmsBlockModel();
         return $this->filterProvider->getBlockFilter()
             ->setStoreId($this->_storeManager->getStore()->getId())
-            ->filter($this->getTeaserItem()->getCmsBlockModel()->getContent());
+            ->filter($blockModel->getContent());
     }
 }
