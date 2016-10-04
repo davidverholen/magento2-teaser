@@ -102,7 +102,7 @@ class TeaserGroup extends AbstractModel implements TeaserGroupInterface
     {
         if ($this->teaserItemsCollection === null) {
             $this->teaserItemsCollection = $this->createTeaserItemsCollection()
-                ->setTeaserGroupFilter($this)
+                ->setTeaserGroupFilter($this, true)
                 ->setDataToAll('teaser_group', $this);
         }
 
