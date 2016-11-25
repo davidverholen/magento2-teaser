@@ -54,7 +54,7 @@ class IsActive implements OptionSourceInterface
      */
     public function toOptionArray()
     {
-        if(null === self::$options) {
+        if (null === self::$options) {
             $availableOptions = $this->teaserItem->getAvailableStatuses();
             self::$options = [];
             foreach ($availableOptions as $key => $value) {

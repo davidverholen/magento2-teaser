@@ -1,0 +1,27 @@
+<?php /** @var \DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer $block */ ?>
+<?php $teaserItem = $block->getTeaserItem() ?>
+<?php $cssClass = implode(' ', ['teaser teaser--split', $teaserItem->getCssClass()]) ?>
+<div class="<?php /** @escapeNotVerified */ echo $cssClass ?>">
+    <div class="row">
+        <div class="col-xs-12 col-lg-6 col-lg-push-6">
+            <?php if($teaserItem->getImagePath()): ?>
+                <div class="teaser__media">
+                    <picture>
+                        <?php if($teaserItem->getMobileImagePath()): ?>
+                            <source media="(max-width: 767px)" srcset="<?php /** @escapeNotVerified */ echo $teaserItem->getMobileImageUrl() ?>"/>
+                        <?php endif; ?>
+                        <source srcset="<?php /** @escapeNotVerified */ echo $teaserItem->getImageUrl() ?>"/>
+                        <img src="<?php /** @escapeNotVerified */ echo $teaserItem->getImageUrl() ?>"/>
+                    </picture>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="col-xs-12 col-lg-6 col-lg-pull-6">
+            <div class="teaser__content">
+                <div class="teaser__text">
+                    <?php /** @escapeNotVerified */ echo $block->renderCmsBlockHtml() ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

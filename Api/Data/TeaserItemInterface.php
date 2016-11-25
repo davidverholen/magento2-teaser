@@ -26,8 +26,11 @@ interface TeaserItemInterface
 {
     const TEASER_ITEM_ID = 'teaser_item_id';
     const TITLE = 'title';
+    const CSS_CLASS = 'css_class';
     const CMS_BLOCK_IDENTIFIER = 'cms_block_identifier';
     const IMAGE_PATH = 'image_path';
+    const MOBILE_IMAGE_PATH = 'mobile_image_path';
+    const RENDERER = 'renderer';
     const IS_ACTIVE = 'is_active';
     const MODIFIED_DATE = 'modified_date';
     const CREATION_DATE = 'creation_date';
@@ -53,6 +56,13 @@ interface TeaserItemInterface
      */
     public function getTitle();
 
+    /**
+     * getCssClass
+     *
+     * @return string
+     */
+    public function getCssClass();
+
 
     /**
      * getImagePath
@@ -60,6 +70,20 @@ interface TeaserItemInterface
      * @return string
      */
     public function getImagePath();
+
+    /**
+     * getMobileImagePath
+     *
+     * @return string
+     */
+    public function getMobileImagePath();
+
+    /**
+     * getRenderer
+     *
+     * @return string
+     */
+    public function getRenderer();
 
     /**
      * getIsActive
@@ -92,6 +116,15 @@ interface TeaserItemInterface
     public function setTitle($title);
 
     /**
+     * setCssClass
+     *
+     * @param string $cssClass
+     *
+     * @return TeaserItemInterface
+     */
+    public function setCssClass($cssClass);
+
+    /**
      * setCmsBlockIdentifier
      *
      * @param string $cmsBlockIdentifier
@@ -108,6 +141,24 @@ interface TeaserItemInterface
      * @return TeaserItemInterface
      */
     public function setImagePath($imagePath);
+
+    /**
+     * setMobileImagePath
+     *
+     * @param string $mobileImagePath
+     *
+     * @return TeaserItemInterface
+     */
+    public function setMobileImagePath($mobileImagePath);
+
+    /**
+     * setRenderer
+     *
+     * @param string $renderer
+     *
+     * @return TeaserItemInterface
+     */
+    public function setRenderer($renderer);
 
     /**
      * setIsActive

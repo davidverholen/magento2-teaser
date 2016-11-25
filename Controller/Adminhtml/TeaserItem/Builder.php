@@ -16,7 +16,6 @@ namespace DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem;
 use DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface;
 use DavidVerholen\Teaser\Controller\RegistryConstants;
 use DavidVerholen\Teaser\Model\TeaserItemFactory;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Registry;
 use Psr\Log\LoggerInterface;
 

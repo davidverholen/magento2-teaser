@@ -43,6 +43,25 @@ class TeaserItem extends AbstractDb
     }
 
     /**
+     * @param TeaserItemInterface $teaserItemObject
+     *
+     * @return array
+     */
+    public function getTeaserGroupIds(TeaserItemInterface $teaserItemObject)
+    {
+        $connection = $this->getConnection();
+        $select = $connection->select()->from(
+            TeaserGroup::ITEM_LINK_TABLE_NAME,
+            'teaser_group_id'
+        )->where(
+            'teaser_item_id=?',
+            (int)$teaserItemObject->getId()
+        );
+
+        return $connection->fetchCol($select);
+    }
+
+    /**
      * getAvailableStatuses
      *
      * @return array

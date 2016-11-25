@@ -1,36 +1,77 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemInterface" type="DavidVerholen\Teaser\Model\TeaserItem"/>
-    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserItemRepository"/>
+    <!-- UI Component CollectionFactory Config -->
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="teaser_item_listing_data_source" xsi:type="string">DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Grid\Collection</item>
+                <item name="teaser_item_listing_data_source" xsi:type="string">TeaserItemGridCollection</item>
+                <item name="teaser_group_listing_data_source" xsi:type="string">TeaserGroupGridCollection</item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <!-- Teaser Item Config -->
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemInterface" type="DavidVerholen\Teaser\Model\TeaserItem"/>
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserItemSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="DavidVerholen\Teaser\Api\TeaserItemRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserItemRepository"/>
+    <virtualType name="TeaserItemGridCollection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">davidverholen_teaser_item</argument>
             <argument name="resourceModel" xsi:type="string">DavidVerholen\Teaser\Model\ResourceModel\TeaserItem</argument>
         </arguments>
     </virtualType>
-    <virtualType name="TeaserGridFilterPool"
-                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+    <!-- Teaser Group Config -->
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserGroupInterface" type="DavidVerholen\Teaser\Model\TeaserGroup"/>
+    <preference for="DavidVerholen\Teaser\Api\Data\TeaserGroupSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface" type="DavidVerholen\Teaser\Model\TeaserGroupRepository"/>
+    <virtualType name="TeaserGroupGridCollection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
-            <argument name="appliers" xsi:type="array">
-                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
-                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            <argument name="mainTable" xsi:type="string">davidverholen_teaser_group</argument>
+            <argument name="resourceModel" xsi:type="string">DavidVerholen\Teaser\Model\ResourceModel\TeaserGroup</argument>
+        </arguments>
+    </virtualType>
+    <!-- Teaser Item Renderer -->
+    <type name="DavidVerholen\Teaser\Block\TeaserItem\Renderer\RendererFactory">
+        <arguments>
+            <argument name="renderer" xsi:type="array">
+                <item name="default" xsi:type="string">TeaserItemDefaultRenderer</item>
+                <item name="text_only" xsi:type="string">TeaserItemTextOnlyRenderer</item>
+                <item name="split" xsi:type="string">TeaserItemSplitRenderer</item>
+                <item name="bg" xsi:type="string">TeaserItemBgRenderer</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="TeaserItemDefaultRenderer" type="DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">teaseritem/default.phtml</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="TeaserItemGridDataProvider"
-                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+    <virtualType name="TeaserItemTextOnlyRenderer" type="DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer">
         <arguments>
-            <argument name="collection" xsi:type="object" shared="false">DavidVerholen\Teaser\Model\ResourceModel\TeaserItem\Collection</argument>
-            <argument name="filterPool" xsi:type="object" shared="false">TeaserGridFilterPool</argument>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">teaseritem/text_only.phtml</item>
+            </argument>
         </arguments>
     </virtualType>
+    <virtualType name="TeaserItemSplitRenderer" type="DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">teaseritem/split.phtml</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemBgRenderer" type="DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">teaseritem/bg.phtml</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="DavidVerholen\Teaser\Block\Widget\TeaserItem">
+        <arguments>
+            <argument name="teaserGroupRepository" xsi:type="object">DavidVerholen\Teaser\Api\TeaserGroupRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
 </config>
