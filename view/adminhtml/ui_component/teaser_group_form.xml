@@ -95,4 +95,23 @@
             </argument>
         </field>
     </fieldset>
+    <fieldset name="teaser_items">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Teaser Items</item>
+                <item name="validate" xsi:type="string">${ console.log($) }</item>
+            </item>
+        </argument>
+        <insertListing name="teaser_item_listing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="autoRender" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">teaser_item_listing</item>
+                    <item name="externalProvider" xsi:type="string">teaser_item_listing.teaser_item_listing_data_source</item>
+                    <item name="selectionsProvider" xsi:type="string">teaser_item_listing.teaser_item_listing.teaser_item_columns.ids</item>
+                    <item name="ns" xsi:type="string">teaser_item_listing</item>
+                </item>
+            </argument>
+        </insertListing>
+    </fieldset>
 </form>
