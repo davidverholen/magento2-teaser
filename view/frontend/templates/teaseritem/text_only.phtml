@@ -1,0 +1,10 @@
+<?php /** @var \DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer $block */ ?>
+<?php $teaserItem = $block->getTeaserItem() ?>
+<?php $cssClass = implode(' ', ['teaser teaser--text-only', $teaserItem->getCssClass()]) ?>
+<div class="<?php /** @escapeNotVerified */ echo $cssClass ?>">
+    <?php if ($teaserItem->getCmsBlockIdentifier()): ?>
+        <div class="teaser__text">
+            <?php /** @escapeNotVerified */ echo $block->renderCmsBlockHtml() ?>
+        </div>
+    <?php endif; ?>
+</div>

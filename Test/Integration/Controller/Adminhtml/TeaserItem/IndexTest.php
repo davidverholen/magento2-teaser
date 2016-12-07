@@ -16,41 +16,36 @@ namespace DavidVerholen\Teaser\Test\Integration\Controller\Adminhtml\TeaserItem;
 use DavidVerholen\Teaser\Controller\Adminhtml\TeaserItem\Index;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\TestFramework\ObjectManager;
+use Magento\TestFramework\TestCase\AbstractBackendController;
 
 /**
  * Class IndexTest
  *
- * @category magento2
- * @package  DavidVerholen\Teaser\Test\Integration\Controller\Adminhtml\TeaserItem
- * @author   David Verholen <david@verholen.com>
- * @license  http://opensource.org/licenses/OSL-3.0 OSL-3.0
- * @link     http://github.com/davidverholen
+ * @category           magento2
+ * @package            DavidVerholen\Teaser\Test\Integration\Controller\Adminhtml\TeaserItem
+ * @author             David Verholen <david@verholen.com>
+ * @license            http://opensource.org/licenses/OSL-3.0 OSL-3.0
+ * @link               http://github.com/davidverholen
+ *
+ * @magentoAppArea     adminhtml
  */
-class IndexTest extends \PHPUnit_Framework_TestCase
+class IndexTest extends AbstractBackendController
 {
-    /**
-     * @var string
-     */
+    protected $uri = 'backend/teaser/teaseritem/index';
+    protected $resource = 'DavidVerholen_Teaser::teaser_item';
     protected $action = Index::class;
 
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
-    protected function setUp()
+    public function testTheAddNewButtonIsPresent()
     {
-        parent::setUp();
-        $this->objectManager = ObjectManager::getInstance();
+        $this->dispatch($this->uri);
+        $content = $this->getResponse()->getBody();
+        $this->assertContains('Add New Teaser Item', $content);
     }
 
-    /**
-     * @magentoAppArea adminhtml
-     */
     public function testTheActionReturnsAResultPage()
     {
         /** @var Index $indexAction */
-        $indexAction = $this->objectManager->create($this->action);
+        $indexAction = $this->_objectManager->create($this->action);
         $this->assertInstanceOf(Page::class, $indexAction->execute());
     }
 }

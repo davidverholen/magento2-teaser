@@ -51,7 +51,7 @@ class Edit extends TeaserItem
         }
 
         $data = $this->_session->getData('form_data', true);
-        if(!empty($data)) {
+        if (!empty($data)) {
             $teaserItem->setData($data);
         }
 

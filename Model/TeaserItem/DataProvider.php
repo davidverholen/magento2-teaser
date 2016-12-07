@@ -35,12 +35,18 @@ class DataProvider extends AbstractDataProvider implements DataProviderInterface
     protected $loadedData;
 
     /**
+     * @var Image
+     */
+    protected $imageModel;
+
+    /**
      * DataProvider constructor.
      *
      * @param string                      $name
      * @param string                      $primaryFieldName
      * @param string                      $requestFieldName
      * @param TeaserItemCollectionFactory $teaserItemCollectionFactory
+     * @param Image                       $imageModel
      * @param array                       $meta
      * @param array                       $data
      */
@@ -49,6 +55,7 @@ class DataProvider extends AbstractDataProvider implements DataProviderInterface
         $primaryFieldName,
         $requestFieldName,
         TeaserItemCollectionFactory $teaserItemCollectionFactory,
+        Image $imageModel,
         array $meta = [],
         array $data = []
     ) {
@@ -61,6 +68,7 @@ class DataProvider extends AbstractDataProvider implements DataProviderInterface
         );
 
         $this->collection = $teaserItemCollectionFactory->create();
+        $this->imageModel = $imageModel;
     }
 
     /**
@@ -77,7 +85,9 @@ class DataProvider extends AbstractDataProvider implements DataProviderInterface
         $items = $this->collection->getItems();
         /** @var TeaserItem $teaserItem */
         foreach ($items as $teaserItem) {
-            $result['teaser_item'] = $teaserItem->getData();
+            $result['general'] = $teaserItem->getData();
+            $result['general']['image_url'] = $this->imageModel->getImageUrl($teaserItem);
+            $result['general']['image_path_abs'] = $this->imageModel->getImagePath($teaserItem);
             $this->loadedData[$teaserItem->getId()] = $result;
         }
 

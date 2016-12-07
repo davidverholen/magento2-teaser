@@ -56,6 +56,9 @@ class InlineEdit extends TeaserItemController
                     /** @var TeaserItem $teaserItem */
                     $teaserItem = $this->teaserItemRepository->getById($teaserItemId);
                     try {
+                        if (!isset($postItems[$teaserItemId]['cms_block_identifier'])) {
+                            $postItems[$teaserItemId]['cms_block_identifier'] = null;
+                        }
                         $teaserItem->setData(array_merge(
                             $teaserItem->getData(),
                             $postItems[$teaserItemId]

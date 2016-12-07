@@ -25,6 +25,8 @@ namespace DavidVerholen\Teaser\Controller;
 class RegistryConstants
 {
     const CURRENT_TEASER_ITEM_ID = 'current_teaser_item_id';
-
     const CURRENT_TEASER_ITEM = 'current_teaser_item';
+
+    const CURRENT_TEASER_GROUP_ID = 'current_teaser_group_id';
+    const CURRENT_TEASER_GROUP = 'current_teaser_group';
 }
