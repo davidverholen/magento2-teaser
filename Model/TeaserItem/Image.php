@@ -189,7 +189,6 @@ class Image extends DataObject
     public function getImageDirPath()
     {
         return implode(DIRECTORY_SEPARATOR, [
-            BP,
             $this->filesystem->getUri('media'),
             static::TEASER_ITEM_IMAGE_PATH
         ]);
