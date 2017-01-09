@@ -1,0 +1,8 @@
+<?php /** @var \DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer $block */ ?>
+<?php $teaserItem = $block->getTeaserItem() ?>
+<?php $cssClass = implode(' ', ['teaser', $teaserItem->getCssClass()]) ?>
+<div class="<?php /** @escapeNotVerified */ echo $cssClass ?>">
+    <?php if($teaserItem->getHref()): ?>
+        <iframe src="<?php /** @escapeNotVerified */ echo $teaserItem->getHref() ?>" frameborder="0" allowfullscreen></iframe>
+    <?php endif; ?>
+</div>
