@@ -190,6 +190,14 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     }
 
     /**
+     * @return string
+     */
+    public function getHref()
+    {
+        return (string)$this->getData(static::HREF);
+    }
+
+    /**
      * getRenderer
      *
      * @return string
@@ -287,6 +295,16 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
     public function setMobileImagePath($mobileImagePath)
     {
         return $this->setData(static::MOBILE_IMAGE_PATH, $mobileImagePath);
+    }
+
+    /**
+     * @param string $href
+     *
+     * @return TeaserItemInterface
+     */
+    public function setHref($href)
+    {
+        return $this->setData(static::HREF, $href);
     }
 
     /**
