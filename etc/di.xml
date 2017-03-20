@@ -38,6 +38,7 @@
                 <item name="text_only" xsi:type="string">TeaserItemTextOnlyRenderer</item>
                 <item name="split" xsi:type="string">TeaserItemSplitRenderer</item>
                 <item name="bg" xsi:type="string">TeaserItemBgRenderer</item>
+                <item name="youtube" xsi:type="string">TeaserItemYoutubeRenderer</item>
             </argument>
         </arguments>
     </type>
@@ -66,6 +67,13 @@
         <arguments>
             <argument name="data" xsi:type="array">
                 <item name="template" xsi:type="string">teaseritem/bg.phtml</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TeaserItemYoutubeRenderer" type="DavidVerholen\Teaser\Block\TeaserItem\Renderer\DefaultRenderer">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">teaseritem/youtube.phtml</item>
             </argument>
         </arguments>
     </virtualType>
