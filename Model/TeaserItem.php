@@ -22,6 +22,7 @@ use Magento\Cms\Model\BlockFactory;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
+use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class TeaserItem
@@ -60,18 +61,11 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
      * @var BlockFactory
      */
     protected $cmsBlockFactory;
-
     /**
-     * TeaserItem constructor.
-     *
-     * @param Context            $context
-     * @param Registry           $registry
-     * @param TeaserItemResource $resource
-     * @param Collection         $resourceCollection
-     * @param Image              $imageAttributeModel
-     * @param BlockFactory       $cmsBlockFactory
-     * @param array              $data
+     * @var StoreManagerInterface
      */
+    private $storeManager;
+
     public function __construct(
         Context $context,
         Registry $registry,
@@ -79,11 +73,13 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
         Collection $resourceCollection,
         Image $imageAttributeModel,
         BlockFactory $cmsBlockFactory,
+        StoreManagerInterface $storeManager,
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->imageAttributeModel = $imageAttributeModel;
         $this->cmsBlockFactory = $cmsBlockFactory;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -102,6 +98,7 @@ class TeaserItem extends AbstractModel implements TeaserItemInterface
         if (false === $this->hasData('cms_block_model') && false === empty($this->getCmsBlockIdentifier())) {
             /** @var Block $model */
             $model = $this->cmsBlockFactory->create();
+            $model->setData('store_id', $this->storeManager->getStore()->getId());
 
             if ($this->getCmsBlockIdentifier()) {
                 $model->load($this->getCmsBlockIdentifier(), 'identifier');
