@@ -81,7 +81,7 @@
         </field>
         <field name="cms_block_identifier">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>
+                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\Source\Cms\Block</item>
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string">Cms Block</item>
                     <item name="visible" xsi:type="boolean">true</item>

@@ -103,7 +103,7 @@
         </column>
         <column name="cms_block_identifier">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">DavidVerholen\Cms\Model\Source\Cms\Block</item>
+                <item name="options" xsi:type="object">DavidVerholen\Teaser\Model\Source\Cms\Block</item>
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">select</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>

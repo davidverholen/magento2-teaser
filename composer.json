@@ -3,7 +3,6 @@
   "description": "CMS Teaser Elements",
   "require": {
     "php": "^7.0.0",
-    "davidverholen/cms": "^1.0.0",
     "magento/framework": "^100.0.0",
     "magento/module-backend": "^100.0.0",
     "magento/module-theme": "^100.0.0",
