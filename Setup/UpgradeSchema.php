@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+
 namespace DavidVerholen\Teaser\Setup;
 
 use DavidVerholen\Teaser\Api\Data\TeaserItemInterface;
